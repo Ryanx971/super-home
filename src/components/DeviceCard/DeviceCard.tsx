@@ -6,7 +6,7 @@ import {
   WifiOutlined,
   WifiOffOutlined,
 } from '@mui/icons-material';
-import { IDevice, IDeviceControlPayload } from '../../models';
+import { IDevice } from '../../models';
 import {
   useDeviceControlUpdate,
   useDeviceState,
@@ -35,7 +35,7 @@ const DeviceCard = ({ device }: IProps) => {
 
   const handlePowerStateChange = (checked: boolean): void => {
     const newValue = checked ? 'on' : 'off';
-    const payload: IDeviceControlPayload = {
+    const payload: any = {
       device: device.device,
       model: device.model,
       cmd: {
@@ -64,7 +64,7 @@ const DeviceCard = ({ device }: IProps) => {
     event: Event | React.SyntheticEvent<Element, Event>,
     newValue: number | number[]
   ): void => {
-    const payload: IDeviceControlPayload = {
+    const payload: any = {
       device: device.device,
       model: device.model,
       cmd: {

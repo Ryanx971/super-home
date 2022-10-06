@@ -17,8 +17,8 @@ import './Home.scss';
 
 const Home = () => {
   const { t } = useTranslation();
-  const { data, error, isFetching, isError, refetch } = useDevicesList();
-  const goveeDevices: [IDevice] = data?.devices;
+  // const { data, error, isFetching, isError, refetch } = useDevicesList();
+  // const goveeDevices: [IDevice] = data?.devices;
 
   return (
     <Container className="home-container">
@@ -26,7 +26,8 @@ const Home = () => {
         <Typography variant="h4">{t('homePage.title')}</Typography>
         <div className="line"></div>
       </Box>
-      <Box className="devices-list">
+      <DevicesSkeleton repeat={6} height={200} />
+      {/* <Box className="devices-list">
         {isError && error instanceof Error && (
           <AlertActions
             severity="error"
@@ -49,7 +50,7 @@ const Home = () => {
               );
             })}
         </Grid>
-      </Box>
+      </Box> */}
     </Container>
   );
 };

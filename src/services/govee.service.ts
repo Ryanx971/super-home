@@ -1,4 +1,3 @@
-import { IDeviceControlPayload } from '../models';
 import axios from './axios.service';
 
 const getDevicesList = async () => {
@@ -17,7 +16,7 @@ const getDeviceState = async (device: string, model: string) => {
     .then(({ data: response }) => response.data);
 };
 
-const sendDeviceControl = async (data: IDeviceControlPayload) => {
+const sendDeviceControl = async (data: any) => {
   return axios
     .put('/devices/control', data)
     .then(({ data: response }) => response.data);
