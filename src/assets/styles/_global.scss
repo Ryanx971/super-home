@@ -1,0 +1,25 @@
+// Color
+$color-primary: #5e44ff;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-gray: #c4c4c4;
+$color-gray40: #d0d0d0;
+$color-gray30: #dcdcdc;
+$color-gray20: #e7e7e7;
+$color-gray10: #f3f3f3;
+
+// Color
+.color-primary {
+  color: $color-primary;
+}
+
+.color-gray {
+  color: $color-gray;
+}
+
+// Background
+.bg-disabled {
+  background-color: $color-gray10;
+  opacity: 0.4;
+}
+

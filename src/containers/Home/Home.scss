@@ -1,0 +1,26 @@
+@import '../../assets/styles/global';
+
+.home-container {
+  background-color: inherit;
+
+  .home-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin-bottom: 2rem;
+    gap: 8px;
+
+    .line {
+      width: 23px;
+      height: 0px;
+      border: 2px solid $color-black;
+    }
+  }
+
+  .devices-list {
+    background-color: inherit;
+    border-radius: 25px;
+  }
+}
+

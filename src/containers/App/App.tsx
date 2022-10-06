@@ -7,7 +7,7 @@ import Home from '../Home';
 const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
@@ -17,3 +17,4 @@ const App = () => {
 };
 
 export default App;
+

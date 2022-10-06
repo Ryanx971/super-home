@@ -1,47 +1,27 @@
-import { AxiosRequestConfig } from 'axios';
+import { IDeviceControlPayload } from '../models';
 import axios from './axios.service';
-import { GOVEE } from '../config/configuration';
 
-const defaultConfig: AxiosRequestConfig<any> = {
-  headers: {
-    [GOVEE.ApiKeyName]: GOVEE.ApiKeyValue,
-  },
-};
-
-/**
- * Get Govee devices list
- *
- * @returns Promise<AxiosResponse<any, any>>
- */
 const getDevicesList = async () => {
-  return axios
-    .get(`${GOVEE.baseUrl}/devices`, defaultConfig)
-    .then(({ data }) => data);
+  return axios.get('/devices').then(({ data: response }) => response.data);
 };
 
-/**
- * Get Govee device state
- *
- * @returns Promise<AxiosResponse<any, any>>
- */
 const getDeviceState = async (device: string, model: string) => {
   const config = {
-    ...defaultConfig,
     params: {
       device,
       model,
     },
   };
   return axios
-    .get(`${GOVEE.baseUrl}/devices/state`, config)
-    .then(({ data }) => data);
+    .get('/devices/state', config)
+    .then(({ data: response }) => response.data);
 };
 
-const deviceControl = (data: any) => {
+const sendDeviceControl = async (data: IDeviceControlPayload) => {
   return axios
-    .put(`${GOVEE.baseUrl}/devices/control`, data, defaultConfig)
-    .then(({ data }) => data);
+    .put('/devices/control', data)
+    .then(({ data: response }) => response.data);
 };
 
-export { getDevicesList, getDeviceState, deviceControl };
+export { getDevicesList, getDeviceState, sendDeviceControl };
 

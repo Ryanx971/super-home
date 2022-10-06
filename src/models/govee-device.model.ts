@@ -1,10 +1,6 @@
-// Device
+// Get Devices
 export interface IDevicesResponse {
-  code: number;
-  message: string;
-  data: {
-    devices: [IDevice];
-  };
+  devices: [IDevice];
 }
 
 export interface IDevice {
@@ -15,7 +11,7 @@ export interface IDevice {
   state?: {
     online: boolean;
     powerState: string;
-    brightness: number;
+    brightness: number | number[];
     color: any;
   };
   controllable: boolean;
@@ -39,15 +35,11 @@ enum ESupportCmds {
   COLOR_TEM = 'colorTem',
 }
 
-// State
+// Get state
 export interface IDeviceStateResponse {
-  code: number;
-  message: string;
-  data: {
-    model: string;
-    device: string;
-    properties: any;
-  };
+  model: string;
+  device: string;
+  properties: any;
 }
 
 export enum EDeviceStateProperties {
@@ -55,5 +47,15 @@ export enum EDeviceStateProperties {
   POWERSTATE = 'powerState',
   BRIGHTNESS = 'brightness',
   COLORTEM = 'colorTem',
+}
+
+// Send device control
+export interface IDeviceControlPayload {
+  device: string;
+  model: string;
+  cmd: {
+    name: string;
+    value: any;
+  };
 }
 

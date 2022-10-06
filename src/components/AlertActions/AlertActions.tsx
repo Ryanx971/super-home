@@ -1,5 +1,8 @@
 import React from 'react';
 import { Alert, AlertColor, AlertTitle, Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+
+import './AlertActions.scss';
 
 interface IAlertAction {
   severity: AlertColor | undefined;
@@ -8,10 +11,12 @@ interface IAlertAction {
 }
 
 const AlertAction = ({ severity, message, children }: IAlertAction) => {
+  const { t } = useTranslation();
+
   return (
-    <Box>
+    <Box className="alert-actions">
       <Alert severity={severity}>
-        <AlertTitle>Error</AlertTitle>
+        <AlertTitle>{t('common.error')}</AlertTitle>
         <p>{message}</p>
         {children}
       </Alert>

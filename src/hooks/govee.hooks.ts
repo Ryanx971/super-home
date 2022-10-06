@@ -3,13 +3,14 @@ import { IDevice, IDeviceStateResponse } from '../models';
 import {
   getDevicesList,
   getDeviceState,
-  deviceControl,
+  sendDeviceControl,
 } from '../services/govee.service';
 import { CONSTANTS } from '../config/configuration';
 
 const useDevicesList = () => {
   return useQuery(['govee-devices-list'], () => getDevicesList(), {
     staleTime: CONSTANTS.DEFAULT_STALETIME,
+    refetchInterval: CONSTANTS.DEFAULT_STALETIME,
   });
 };
 
@@ -19,51 +20,24 @@ const useDeviceState = (data: IDevice) => {
     () => getDeviceState(data.device, data.model),
     {
       staleTime: CONSTANTS.DEFAULT_STALETIME,
-      onSuccess: (stateData: IDeviceStateResponse) => {
+      onSuccess: ({ properties }: IDeviceStateResponse) => {
         // update data found
         data.state = {
-          online: stateData.data.properties[0].online === true,
-          powerState: stateData.data.properties[1].powerState,
-          brightness: stateData.data.properties[2].brightness,
-          color: stateData.data.properties[3].colorTem,
+          online: properties[0].online === true,
+          powerState: properties[1].powerState,
+          brightness: properties[2].brightness,
+          color: properties[3].colorTem,
         };
       },
     }
   );
 };
 
-const useDeviceControl = () => {
+const useDeviceControlUpdate = () => {
   return useMutation((data) => {
-    return deviceControl(data);
+    return sendDeviceControl(data);
   });
 };
 
-// const useDevicesState = (devices: [IDevice]) => {
-//   const onDeviceStateSucess = ({ data }: IDeviceStateResponse) => {
-//     const deviceFound = devices.find(
-//       (device: IDevice) => device.device === data.device
-//     );
-//     if (deviceFound) {
-//       // update data found
-//       deviceFound.state = {
-//         ...data.properties,
-//       };
-//     }
-//   };
-
-//   return useQueries({
-//     queries:
-//       devices?.map((item: IDevice) => {
-//         return {
-//           queryKey: ['govee-devices-state', item.device],
-//           queryFn: () => getDeviceState(item.device, item.model),
-//           enabled: !!devices,
-//           staleTime: CONSTANTS.DEFAULT_STALETIME,
-//           onSuccess: onDeviceStateSucess,
-//         };
-//       }) ?? [],
-//   });
-// };
-
-export { useDevicesList, useDeviceState, useDeviceControl };
+export { useDevicesList, useDeviceState, useDeviceControlUpdate };
 

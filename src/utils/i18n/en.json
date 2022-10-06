@@ -1,0 +1,10 @@
+{
+  "common": {
+    "error": "Erreur"
+  },
+  "homePage": {
+    "title": "All devices",
+    "reloadDevices": "Reload devices"
+  }
+}
+
