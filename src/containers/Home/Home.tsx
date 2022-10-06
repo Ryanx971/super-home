@@ -17,8 +17,8 @@ import './Home.scss';
 
 const Home = () => {
   const { t } = useTranslation();
-  // const { data, error, isFetching, isError, refetch } = useDevicesList();
-  // const goveeDevices: [IDevice] = data?.devices;
+  const { data, error, isFetching, isError, refetch } = useDevicesList();
+  const goveeDevices: [IDevice] = data?.devices;
 
   return (
     <Container className="home-container">
@@ -26,8 +26,7 @@ const Home = () => {
         <Typography variant="h4">{t('homePage.title')}</Typography>
         <div className="line"></div>
       </Box>
-      <DevicesSkeleton repeat={6} height={200} />
-      {/* <Box className="devices-list">
+      <Box className="devices-list">
         {isError && error instanceof Error && (
           <AlertActions
             severity="error"
@@ -40,7 +39,7 @@ const Home = () => {
           />
         )}
         <Grid container spacing={6} columnSpacing={8}>
-          {isFetching && <DevicesSkeleton repeat={6} height={200} />}
+          {isFetching && <DevicesSkeleton repeat={9} height={250} />}
           {!isFetching &&
             goveeDevices.map((device, index) => {
               return (
@@ -50,7 +49,7 @@ const Home = () => {
               );
             })}
         </Grid>
-      </Box> */}
+      </Box>
     </Container>
   );
 };
@@ -65,8 +64,68 @@ const DevicesSkeleton = ({ repeat, height }: IDevicesSkeleton) => {
     <>
       {Array.from(Array(repeat), (item: number, index: number) => {
         return (
-          <Grid item xs={4} key={index}>
-            <Skeleton variant="rounded" height={height} />
+          <Grid item xs={4} key={index} height={height}>
+            <Box className="device-skeleton">
+              <Grid container>
+                <Grid item xs={3}>
+                  <Skeleton
+                    variant="circular"
+                    animation="wave"
+                    width={60}
+                    height={60}
+                  />
+                </Grid>
+                <Grid item xs={2}></Grid>
+                <Grid item xs={7} className="right-content">
+                  <Skeleton
+                    variant="circular"
+                    animation="wave"
+                    className="mr"
+                    width={20}
+                    height={20}
+                  />
+                  <Skeleton
+                    variant="circular"
+                    animation="wave"
+                    className="mr"
+                    width={20}
+                    height={20}
+                  />
+                  <Skeleton
+                    variant="circular"
+                    animation="wave"
+                    className="mr"
+                    width={20}
+                    height={20}
+                  />
+                  <Skeleton
+                    variant="rounded"
+                    animation="wave"
+                    width={30}
+                    height={20}
+                  />
+                </Grid>
+              </Grid>
+              <Skeleton
+                className="slider"
+                variant="text"
+                width="100%"
+                animation="wave"
+                height={15}
+              />
+              <Skeleton
+                variant="text"
+                width="60%"
+                animation="wave"
+                height={40}
+              />
+              <Skeleton
+                variant="text"
+                width="25%"
+                animation="wave"
+                height={25}
+              />
+            </Box>
           </Grid>
         );
       })}
