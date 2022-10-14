@@ -19,6 +19,9 @@ const Home = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevicesList();
   const goveeDevices: [IDevice] = data?.devices;
+  if (goveeDevices) {
+    console.log(goveeDevices[0]);
+  }
 
   return (
     <Container className="home-container">

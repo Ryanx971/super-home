@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import './AlertActions.scss';
 
 interface IAlertAction {
-  severity: AlertColor | undefined;
+  severity: AlertColor;
   message: string;
   children?: React.ReactNode;
 }
 
-const AlertAction = ({ severity, message, children }: IAlertAction) => {
+const AlertActions = ({ severity, message, children }: IAlertAction) => {
   const { t } = useTranslation();
 
   return (
@@ -24,5 +24,5 @@ const AlertAction = ({ severity, message, children }: IAlertAction) => {
   );
 };
 
-export default AlertAction;
+export default AlertActions;
 

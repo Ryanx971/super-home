@@ -7,6 +7,7 @@ import './IconPopover.scss';
 interface IProps {
   iconName: string;
   children: React.ReactNode;
+  classes?: string;
   disabled?: boolean;
   anchorOriginVertical: number | 'bottom' | 'top' | 'center';
   anchorOriginHorizontal: number | 'center' | 'left' | 'right';
@@ -17,15 +18,15 @@ interface IProps {
 const IconPopover = ({
   iconName,
   children,
+  classes,
   disabled,
   anchorOriginVertical,
   anchorOriginHorizontal,
   transformOriginVertical,
   transformOriginHorizontal,
 }: IProps) => {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+  const [anchorEl, setAnchorEl] =
+    React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -37,6 +38,7 @@ const IconPopover = ({
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
+  const popOverClasses = `popover-container ${classes}`;
 
   return (
     <>
@@ -68,7 +70,7 @@ const IconPopover = ({
           horizontal: transformOriginHorizontal,
         }}
       >
-        <Box className="popover-container">{children}</Box>
+        <Box className={popOverClasses}>{children}</Box>
       </Popover>
     </>
   );

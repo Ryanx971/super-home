@@ -43,7 +43,6 @@ const DeviceCard = ({ device }: IProps) => {
         value: newValue,
       },
     };
-    // queryClient.invalidateQueries(['govee-device-state', device.device]);
     updateDeviceControl(payload, {
       onSuccess: () => {
         // queryClient.setQueryData(
@@ -130,15 +129,8 @@ const DeviceCard = ({ device }: IProps) => {
             {/* Color picker  */}
             <IconPopover
               iconName="color_lens_outlined"
-              children={
-                <Box
-                  className={`${
-                    isDeviceControlUpdateLoading ? 'bg-disabled' : ''
-                  } `}
-                >
-                  <CirclePicker onChangeComplete={handleColorChange} />
-                </Box>
-              }
+              classes={isDeviceControlUpdateLoading ? 'bg-disabled' : ''}
+              children={<CirclePicker onChangeComplete={handleColorChange} />}
               disabled={!device.state?.online}
               anchorOriginVertical="bottom"
               anchorOriginHorizontal="center"

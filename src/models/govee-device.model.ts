@@ -16,7 +16,7 @@ export interface IDevice {
   };
   controllable: boolean;
   retrievable: boolean;
-  supportCmds: [ESupportCmds];
+  supportCmds: [string, string, string, string];
 }
 
 interface IDeviceProperties {
@@ -26,13 +26,6 @@ interface IDeviceProperties {
       min: number;
     };
   };
-}
-
-enum ESupportCmds {
-  TURN = 'turn',
-  BRIGHTNESS = 'brightness',
-  COLOR = 'color',
-  COLOR_TEM = 'colorTem',
 }
 
 // Get state
