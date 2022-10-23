@@ -1,3 +1,4 @@
+import { deviceStateMapping } from '../utils/mappings/govee.mapping';
 import axios from './axios.service';
 
 const getDevicesList = async () => {
@@ -13,7 +14,7 @@ const getDeviceState = async (device: string, model: string) => {
   };
   return axios
     .get('/devices/state', config)
-    .then(({ data: response }) => response.data);
+    .then(({ data: response }) => deviceStateMapping(response.data));
 };
 
 const sendDeviceControl = async (data: any) => {

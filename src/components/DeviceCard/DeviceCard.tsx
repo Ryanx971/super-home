@@ -1,20 +1,22 @@
-import React from 'react';
-import { Box, Slider, Typography, Grid, IconButton } from '@mui/material';
 import {
   RefreshOutlined,
+  ReportProblem,
   WbIncandescentOutlined,
-  WifiOutlined,
   WifiOffOutlined,
+  WifiOutlined,
 } from '@mui/icons-material';
-import { IDevice } from '../../models';
+import { Box, Grid, IconButton, Slider, Typography } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
+import React from 'react';
+import { CirclePicker } from 'react-color';
 import {
   useDeviceControlUpdate,
   useDeviceState,
 } from '../../hooks/govee.hooks';
-import ToggleSwitch from '../ToggleSwitch';
-import Spinner from '../Spinner';
+import { IDevice } from '../../models';
 import IconPopover from '../IconPopover';
-import { CirclePicker } from 'react-color';
+import Spinner from '../Spinner';
+import ToggleSwitch from '../ToggleSwitch';
 
 import './DeviceCard.scss';
 
@@ -24,14 +26,17 @@ interface IProps {
 
 const DeviceCard = ({ device }: IProps) => {
   const {
-    isRefetching,
+    data: deviceState,
+    isRefetching: isDeviceRefetching,
     isFetching: isDeviceFetching,
     refetch: refreshDevice,
+    isError: isDeviceError,
   } = useDeviceState(device);
   const {
     isLoading: isDeviceControlUpdateLoading,
     mutate: updateDeviceControl,
   } = useDeviceControlUpdate();
+  const queryClient = useQueryClient();
 
   const handlePowerStateChange = (checked: boolean): void => {
     const newValue = checked ? 'on' : 'off';
@@ -45,16 +50,13 @@ const DeviceCard = ({ device }: IProps) => {
     };
     updateDeviceControl(payload, {
       onSuccess: () => {
-        // queryClient.setQueryData(
-        //   ['govee-device-state', device.device],
-        //   (data: any) => {
-        //     data.properties[1].powerState = newValue;
-        //     return data;
-        //   }
-        // );
-        if (device.state) {
-          device.state.powerState = newValue;
-        }
+        queryClient.setQueryData(
+          ['govee-device-state', device.device],
+          (currentDevice: any) => {
+            currentDevice.properties.powerState = newValue;
+            return currentDevice;
+          }
+        );
       },
     });
   };
@@ -73,9 +75,13 @@ const DeviceCard = ({ device }: IProps) => {
     };
     updateDeviceControl(payload, {
       onSuccess: () => {
-        if (device.state) {
-          device.state.brightness = newValue;
-        }
+        queryClient.setQueryData(
+          ['govee-device-state', device.device],
+          (currentDevice: any) => {
+            currentDevice.properties.brightness = newValue;
+            return currentDevice;
+          }
+        );
       },
     });
   };
@@ -91,9 +97,13 @@ const DeviceCard = ({ device }: IProps) => {
     };
     updateDeviceControl(payload, {
       onSuccess: () => {
-        if (device.state) {
-          device.state.color = color.rgb;
-        }
+        queryClient.setQueryData(
+          ['govee-device-state', device.device],
+          (currentDevice: any) => {
+            currentDevice.properties.color = color.rgb;
+            return currentDevice;
+          }
+        );
       },
     });
   };
@@ -105,7 +115,7 @@ const DeviceCard = ({ device }: IProps) => {
         (isDeviceFetching || isDeviceControlUpdateLoading ? 'bg-disabled ' : '')
       }
     >
-      {(isRefetching || isDeviceControlUpdateLoading) && <Spinner />}
+      {(isDeviceRefetching || isDeviceControlUpdateLoading) && <Spinner />}
 
       <Grid container className="header">
         <Grid item xs={3} className="left-content">
@@ -114,6 +124,11 @@ const DeviceCard = ({ device }: IProps) => {
         <Grid item xs={2} />
         <Grid item xs={7} className="right-content">
           <Box className="icons-list">
+            {/* Error */}
+            {isDeviceError && (
+              <ReportProblem fontSize="small" className="color-error" />
+            )}
+
             {/* Refresh button */}
             <IconButton
               color="primary"
@@ -131,7 +146,7 @@ const DeviceCard = ({ device }: IProps) => {
               iconName="color_lens_outlined"
               classes={isDeviceControlUpdateLoading ? 'bg-disabled' : ''}
               children={<CirclePicker onChangeComplete={handleColorChange} />}
-              disabled={!device.state?.online}
+              disabled={!deviceState?.properties?.online}
               anchorOriginVertical="bottom"
               anchorOriginHorizontal="center"
               transformOriginVertical="top"
@@ -139,7 +154,7 @@ const DeviceCard = ({ device }: IProps) => {
             />
 
             {/* Online button  */}
-            {device.state?.online ? (
+            {deviceState?.properties?.online ? (
               <WifiOutlined fontSize="small" className="color-primary" />
             ) : (
               <WifiOffOutlined fontSize="small" className="color-gray" />
@@ -147,8 +162,8 @@ const DeviceCard = ({ device }: IProps) => {
 
             <ToggleSwitch
               id={device.deviceName}
-              checked={device.state?.powerState === 'on'}
-              disabled={!device.state?.online}
+              checked={deviceState?.properties?.powerState === 'on'}
+              disabled={!deviceState?.properties?.online}
               onChange={handlePowerStateChange}
               small={true}
             />
@@ -158,9 +173,12 @@ const DeviceCard = ({ device }: IProps) => {
       {/* Slider */}
       <Slider
         size="small"
-        key={`slider-${device.state?.brightness}`}
-        defaultValue={device.state?.brightness}
-        disabled={!device.state?.online || device.state.powerState === 'off'}
+        key={`slider-${deviceState?.properties?.brightness}`}
+        defaultValue={deviceState?.properties?.brightness}
+        disabled={
+          !deviceState?.properties?.online ||
+          deviceState?.properties.powerState === 'off'
+        }
         aria-label="brightness slider"
         valueLabelDisplay="auto"
         className="slider"

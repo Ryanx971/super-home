@@ -5,5 +5,6 @@ export const GOVEE = {
 };
 
 export const CONSTANTS = {
-  DEFAULT_STALETIME: 120000,
+  DEFAULT_STALETIME: 120_000,
 };
+

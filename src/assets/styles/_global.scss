@@ -1,5 +1,6 @@
 // Color
 $color-primary: #5e44ff;
+$color-red: red;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-gray: #c4c4c4;
@@ -8,13 +9,17 @@ $color-gray30: #dcdcdc;
 $color-gray20: #e7e7e7;
 $color-gray10: #f3f3f3;
 
-// Color
+// Colors
 .color-primary {
   color: $color-primary;
 }
 
 .color-gray {
   color: $color-gray;
+}
+
+.color-error {
+  color: $color-red;
 }
 
 // Background

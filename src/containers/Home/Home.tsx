@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   Button,
@@ -7,11 +6,11 @@ import {
   Skeleton,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import AlertActions from '../../components/AlertActions';
 import DeviceCard from '../../components/DeviceCard';
 import { useDevicesList } from '../../hooks/govee.hooks';
 import { IDevice } from '../../models/govee-device.model';
-import { useTranslation } from 'react-i18next';
 
 import './Home.scss';
 
@@ -19,9 +18,6 @@ const Home = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevicesList();
   const goveeDevices: [IDevice] = data?.devices;
-  if (goveeDevices) {
-    console.log(goveeDevices[0]);
-  }
 
   return (
     <Container className="home-container">
