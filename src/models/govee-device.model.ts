@@ -1,9 +1,9 @@
 // Get Devices
-export interface IDevicesResponse {
-  devices: [IDevice];
+export interface DevicesRequestResponse {
+  devices: [Device];
 }
 
-export interface IDevice {
+export interface Device {
   model: string;
   device: string;
   deviceName: string;
@@ -29,13 +29,13 @@ interface IDeviceProperties {
 }
 
 // Get state
-export interface IDeviceStateResponse {
+export interface DeviceStateRequestResponse {
   model: string;
   device: string;
   properties: any;
 }
 
-export enum EDeviceStateProperties {
+export enum DeviceStateProperties {
   ONLINE = 'online',
   POWERSTATE = 'powerState',
   BRIGHTNESS = 'brightness',
@@ -43,7 +43,7 @@ export enum EDeviceStateProperties {
 }
 
 // Send device control
-export interface IDeviceControlPayload {
+export interface DeviceControlPayload {
   device: string;
   model: string;
   cmd: {

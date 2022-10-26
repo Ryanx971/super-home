@@ -1,6 +1,6 @@
-import { IDeviceStateResponse } from '../../models';
+import { DeviceStateRequestResponse } from '../../models';
 
-const deviceStateMapping = (deviceState: IDeviceStateResponse) => {
+const deviceStateMapping = (deviceState: DeviceStateRequestResponse) => {
   const { properties } = deviceState;
   return {
     ...deviceState,

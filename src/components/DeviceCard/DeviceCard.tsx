@@ -13,7 +13,7 @@ import {
   useDeviceControlUpdate,
   useDeviceState,
 } from '../../hooks/govee.hooks';
-import { IDevice } from '../../models';
+import { Device } from '../../models';
 import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
 import ToggleSwitch from '../ToggleSwitch';
@@ -21,7 +21,7 @@ import ToggleSwitch from '../ToggleSwitch';
 import './DeviceCard.scss';
 
 interface IProps {
-  device: IDevice;
+  device: Device;
 }
 
 const DeviceCard = ({ device }: IProps) => {

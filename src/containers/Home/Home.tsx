@@ -10,14 +10,14 @@ import { useTranslation } from 'react-i18next';
 import AlertActions from '../../components/AlertActions';
 import DeviceCard from '../../components/DeviceCard';
 import { useDevicesList } from '../../hooks/govee.hooks';
-import { IDevice } from '../../models/govee-device.model';
+import { Device } from '../../models/govee-device.model';
 
 import './Home.scss';
 
 const Home = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevicesList();
-  const goveeDevices: [IDevice] = data?.devices;
+  const goveeDevices: [Device] = data?.devices;
 
   return (
     <Container className="home-container">

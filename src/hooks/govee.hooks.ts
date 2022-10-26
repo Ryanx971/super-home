@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { IDevice } from '../models';
+import { Device } from '../models';
 import {
   getDevicesList,
   getDeviceState,
@@ -13,7 +13,7 @@ const useDevicesList = () => {
   });
 };
 
-const useDeviceState = (data: IDevice) => {
+const useDeviceState = (data: Device) => {
   return useQuery(
     ['govee-device-state', data.device],
     () => getDeviceState(data.device, data.model),
