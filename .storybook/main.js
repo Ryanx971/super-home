@@ -4,7 +4,14 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/preset-create-react-app',
+    // '@storybook/preset-create-react-app', // with npm
+    {
+      // With pnpm
+      name: '@storybook/preset-create-react-app',
+      options: {
+        scriptsPackageName: 'react-scripts',
+      },
+    },
     'storybook-react-i18next',
     'storybook-addon-mock',
   ],
