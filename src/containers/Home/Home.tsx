@@ -53,12 +53,12 @@ const Home = () => {
   );
 };
 
-interface IDevicesSkeleton {
+interface DeviceSkeletonProps {
   repeat: number;
   height: number;
 }
 
-const DevicesSkeleton = ({ repeat, height }: IDevicesSkeleton) => {
+const DevicesSkeleton = ({ repeat, height }: DeviceSkeletonProps) => {
   return (
     <>
       {Array.from(Array(repeat), (item: number, index: number) => {

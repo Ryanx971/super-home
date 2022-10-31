@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import './AlertActions.scss';
 
-interface IAlertAction {
+interface Props {
   severity: AlertColor;
   message: string;
   children?: React.ReactNode;
 }
 
-const AlertActions = ({ severity, message, children }: IAlertAction) => {
+const AlertActions = ({ severity, message, children }: Props) => {
   const { t } = useTranslation();
 
   return (

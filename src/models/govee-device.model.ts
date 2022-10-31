@@ -7,7 +7,7 @@ export interface Device {
   model: string;
   device: string;
   deviceName: string;
-  properties: IDeviceProperties;
+  properties: DeviceProperties;
   state?: {
     online: boolean;
     powerState: string;
@@ -19,7 +19,7 @@ export interface Device {
   supportCmds: [string, string, string, string];
 }
 
-interface IDeviceProperties {
+interface DeviceProperties {
   colorTem: {
     range: {
       max: number;

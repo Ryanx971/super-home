@@ -4,7 +4,7 @@ import { ColorLensOutlined } from '@mui/icons-material';
 
 import './IconPopover.scss';
 
-interface IProps {
+interface Props {
   iconName: string;
   children: React.ReactNode;
   classes?: string;
@@ -24,7 +24,7 @@ const IconPopover = ({
   anchorOriginHorizontal,
   transformOriginVertical,
   transformOriginHorizontal,
-}: IProps) => {
+}: Props) => {
   const [anchorEl, setAnchorEl] =
     React.useState<HTMLButtonElement | null>(null);
 

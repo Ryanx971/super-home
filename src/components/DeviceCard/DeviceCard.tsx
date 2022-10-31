@@ -20,11 +20,11 @@ import ToggleSwitch from '../ToggleSwitch';
 
 import './DeviceCard.scss';
 
-interface IProps {
+interface Props {
   device: Device;
 }
 
-const DeviceCard = ({ device }: IProps) => {
+const DeviceCard = ({ device }: Props) => {
   const {
     data: deviceState,
     isRefetching: isDeviceRefetching,

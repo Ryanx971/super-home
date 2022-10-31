@@ -7,7 +7,7 @@ Note: id, checked and onChange are required for ToggleSwitch component to functi
 Usage: <ToggleSwitch id="id" checked={value} onChange={checked => setValue(checked)}} />
 */
 
-interface IProps {
+interface Props {
   id: string;
   checked: boolean;
   onChange: Function;
@@ -23,7 +23,7 @@ const ToggleSwitch = ({
   onChange,
   small,
   disabled,
-}: IProps) => {
+}: Props) => {
   function handleKeyPress(e: any) {
     if (e.keyCode !== 32) return;
 
