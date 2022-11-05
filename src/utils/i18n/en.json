@@ -4,6 +4,12 @@
   },
   "homePage": {
     "title": "All devices",
+    "govee": {
+      "title": "Govee devices"
+    },
+    "somfy": {
+      "title": "Somfy devices"
+    },
     "reloadDevices": "Reload devices"
   }
 }

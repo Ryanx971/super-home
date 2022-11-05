@@ -1,0 +1,18 @@
+@import '../../../assets/styles/global';
+
+.device-skeleton {
+  background-color: $color-gray30;
+  border-radius: 25px;
+  padding: 24px;
+  .slider {
+    margin: 1rem 0;
+  }
+  .right-content {
+    display: flex;
+    justify-content: flex-end;
+    .mr {
+      margin-right: 0.5rem;
+    }
+  }
+}
+

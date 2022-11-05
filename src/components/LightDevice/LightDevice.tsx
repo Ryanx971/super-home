@@ -18,7 +18,7 @@ import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
 import ToggleSwitch from '../ToggleSwitch';
 
-import './DeviceCard.scss';
+import './LightDevice.scss';
 
 interface Props {
   device: Device;

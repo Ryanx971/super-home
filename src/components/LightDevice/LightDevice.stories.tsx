@@ -1,16 +1,16 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DeviceCard from './DeviceCard';
+import LightDevice from './LightDevice';
 import { GOVEE } from '../../config/configuration';
 
 export default {
-  title: 'Device Card',
-  component: DeviceCard,
-} as ComponentMeta<typeof DeviceCard>;
+  title: 'Light Device',
+  component: LightDevice,
+} as ComponentMeta<typeof LightDevice>;
 
-const Template: ComponentStory<typeof DeviceCard> = (args) => (
+const Template: ComponentStory<typeof LightDevice> = (args) => (
   <div style={{ width: 350 }}>
-    <DeviceCard {...args} />
+    <LightDevice {...args} />
   </div>
 );
 
