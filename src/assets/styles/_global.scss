@@ -22,9 +22,26 @@ $color-gray10: #f3f3f3;
   color: $color-red;
 }
 
-// Background
+// Backgrounds
 .bg-disabled {
   background-color: $color-gray40;
   opacity: 0.4;
+}
+
+// Buttons
+.btn-default {
+  background-color: $color-primary !important;
+  padding: 12px 24px !important;
+  gap: 24px;
+  border-radius: 14px !important;
+}
+
+// Utils
+.center {
+  text-align: center;
+}
+
+.w-100 {
+  width: 100%;
 }
 

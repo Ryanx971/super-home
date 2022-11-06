@@ -1,6 +1,6 @@
 import React from 'react';
 import AlertActions from '../AlertActions';
-import LightDevice from '../LightDevice';
+import GoveeLightDevice from '../GoveeLightDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
 import { useDevicesList } from '../../hooks/govee.hooks';
 import { Device } from '../../models/govee-device.model';
@@ -38,7 +38,7 @@ const GoveeDevices = () => {
             goveeDevices.map((device, index) => {
               return (
                 <Grid item xs={12} md={6} lg={4} key={index}>
-                  <LightDevice device={device} />
+                  <GoveeLightDevice device={device} />
                 </Grid>
               );
             })}

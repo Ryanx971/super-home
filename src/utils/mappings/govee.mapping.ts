@@ -1,4 +1,4 @@
-import { DeviceStateRequestResponse } from '../../models';
+import { DeviceStateRequestResponse } from '../../models/govee-device.model';
 
 const deviceStateMapping = (deviceState: DeviceStateRequestResponse) => {
   const { properties } = deviceState;

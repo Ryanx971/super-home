@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Device } from '../models';
+import { Device } from '../models/govee-device.model';
 import {
   getDevicesList,
   getDeviceState,

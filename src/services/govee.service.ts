@@ -1,5 +1,9 @@
 import { deviceStateMapping } from '../utils/mappings/govee.mapping';
+import { GOVEE } from '../config/configuration';
 import axios from './axios.service';
+
+axios.defaults.baseURL = GOVEE.baseUrl;
+axios.defaults.headers.common[GOVEE.ApiKeyName] = GOVEE.ApiKeyValue;
 
 const getDevicesList = async () => {
   return axios.get('/devices').then(({ data: response }) => response.data);

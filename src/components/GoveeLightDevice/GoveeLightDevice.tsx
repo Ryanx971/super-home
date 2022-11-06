@@ -13,18 +13,18 @@ import {
   useDeviceControlUpdate,
   useDeviceState,
 } from '../../hooks/govee.hooks';
-import { Device } from '../../models';
+import { Device } from '../../models/govee-device.model';
 import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
 import ToggleSwitch from '../ToggleSwitch';
 
-import './LightDevice.scss';
+import './GoveeLightDevice.scss';
 
 interface Props {
   device: Device;
 }
 
-const DeviceCard = ({ device }: Props) => {
+const GoveeLightDevice = ({ device }: Props) => {
   const {
     data: deviceState,
     isRefetching: isDeviceRefetching,
@@ -193,5 +193,5 @@ const DeviceCard = ({ device }: Props) => {
   );
 };
 
-export default DeviceCard;
+export default GoveeLightDevice;
 
