@@ -1,14 +1,13 @@
 import {
   RefreshOutlined,
-  ReportProblem,
   WbIncandescentOutlined,
   WifiOffOutlined,
   WifiOutlined,
 } from '@mui/icons-material';
 import { Box, Grid, IconButton, Typography } from '@mui/material';
-// import { useDeviceState } from '../../hooks/govee.hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { useDeviceCommand } from '../../hooks/somfy.hooks';
 import { Device } from '../../models/somfy-device.model';
-import Spinner from '../Spinner';
 import ToggleSwitch from '../ToggleSwitch';
 
 import './SomfyLightDevice.scss';
@@ -18,37 +17,45 @@ interface Props {
 }
 
 const SomfyLightDevice = ({ device }: Props) => {
-  // const {
-  //   data: deviceState,
-  //   isRefetching: isDeviceRefetching,
-  //   isFetching: isDeviceFetching,
-  //   refetch: refreshDevice,
-  //   isError: isDeviceError,
-  // } = useDeviceState(device);
+  const queryClient = useQueryClient();
+  // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
+  const { isLoading, mutate: sendDeviceCommand } = useDeviceCommand();
 
   const handlePowerStateChange = (checked: boolean): void => {
     const newValue = checked ? 'on' : 'off';
-    // const payload: any = {
-    //   device: device.device,
-    //   model: device.model,
-    //   cmd: {
-    //     name: 'turn',
-    //     value: newValue,
-    //   },
-    // };
-    // updateDeviceControl(payload, {
-    //   onSuccess: () => {
-    //     queryClient.setQueryData(
-    //       ['govee-device-state', device.device],
-    //       (currentDevice: any) => {
-    //         currentDevice.properties.powerState = newValue;
-    //         return currentDevice;
-    //       }
-    //     );
-    //   },
-    // });
+    const payload: any = {
+      label: `Set Power State ${newValue}`,
+      actions: [
+        {
+          commands: [
+            {
+              name: newValue,
+            },
+          ],
+          deviceURL: device.deviceURL,
+        },
+      ],
+    };
+    sendDeviceCommand(payload, {
+      onSuccess: () => {
+        queryClient.setQueryData(
+          ['somfy-devices-list'],
+          (currentDevices: any) => {
+            // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
+            // const currentDevice: Device = currentDevices.find(
+            //   (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
+            // );
+            // if(currentDevice) {
+            //   currentDevice.states.
+            // }
+            return currentDevices;
+          }
+        );
+      },
+    });
   };
 
+  // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
   return (
     <Box
       className={
@@ -94,9 +101,10 @@ const SomfyLightDevice = ({ device }: Props) => {
             <ToggleSwitch
               id={device.label}
               // checked={deviceState?.properties?.powerState === 'on'}
-              checked={true}
+              checked={false}
               disabled={!device.available || !device.enabled}
-              onChange={handlePowerStateChange}
+              // onChange={handlePowerStateChange}
+              onChange={() => console.log('Not implemented')}
               small={true}
             />
           </Box>
@@ -112,4 +120,8 @@ const SomfyLightDevice = ({ device }: Props) => {
 };
 
 export default SomfyLightDevice;
+
+function updateDeviceControl(payload: any, arg1: { onSuccess: () => void }) {
+  throw new Error('Function not implemented.');
+}
 

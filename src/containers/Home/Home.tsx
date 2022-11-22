@@ -7,11 +7,11 @@ import './Home.scss';
 const Home = () => {
   return (
     <Container className="home-container">
-      <section id="somfy">
-        <SomfyDevices />
-      </section>
       <section id="govee">
         <GoveeDevices />
+      </section>
+      <section id="somfy">
+        <SomfyDevices />
       </section>
     </Container>
   );

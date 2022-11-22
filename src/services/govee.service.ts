@@ -1,29 +1,34 @@
-import { deviceStateMapping } from '../utils/mappings/govee.mapping';
+import { AxiosRequestConfig } from 'axios';
 import { GOVEE } from '../config/configuration';
+import { deviceStateMapping } from '../utils/mappings/govee.mapping';
 import axios from './axios.service';
 
-axios.defaults.baseURL = GOVEE.baseUrl;
-axios.defaults.headers.common[GOVEE.ApiKeyName] = GOVEE.ApiKeyValue;
+const DEFAULT_HEADERS = {
+  [GOVEE.ApiKeyName]: GOVEE.ApiKeyValue,
+};
 
 const getDevicesList = async () => {
-  return axios.get('/devices').then(({ data: response }) => response.data);
+  return axios
+    .get(`${GOVEE.baseUrl}/devices`, { headers: DEFAULT_HEADERS })
+    .then(({ data: response }) => response.data);
 };
 
 const getDeviceState = async (device: string, model: string) => {
-  const config = {
+  const config: AxiosRequestConfig<any> | undefined = {
     params: {
       device,
       model,
     },
+    headers: DEFAULT_HEADERS,
   };
   return axios
-    .get('/devices/state', config)
+    .get(`${GOVEE.baseUrl}/devices/state`, config)
     .then(({ data: response }) => deviceStateMapping(response.data));
 };
 
 const sendDeviceControl = async (data: any) => {
   return axios
-    .put('/devices/control', data)
+    .put(`${GOVEE.baseUrl}/devices/control`, data, { headers: DEFAULT_HEADERS })
     .then(({ data: response }) => response.data);
 };
 

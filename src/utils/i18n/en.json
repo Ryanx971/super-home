@@ -11,6 +11,11 @@
       "title": "Somfy devices"
     },
     "reloadDevices": "Reload devices"
+  },
+  "shutter": {
+    "open": "open",
+    "close": "close",
+    "openAt": "open at {{level}}%"
   }
 }
 

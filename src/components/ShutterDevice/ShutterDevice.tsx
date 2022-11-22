@@ -1,4 +1,11 @@
 import {
+  Blinds,
+  RefreshOutlined,
+  SettingsSuggest,
+  WifiOffOutlined,
+  WifiOutlined,
+} from '@mui/icons-material';
+import {
   Box,
   Button,
   Grid,
@@ -6,14 +13,8 @@ import {
   Slider,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { Device } from '../../models/somfy-device.model';
-import {
-  Blinds,
-  RefreshOutlined,
-  SettingsSuggest,
-  WifiOffOutlined,
-  WifiOutlined,
-} from '@mui/icons-material';
 
 import './ShutterDevice.scss';
 
@@ -22,6 +23,12 @@ interface Props {
 }
 
 const ShutterDevice = ({ device }: Props) => {
+  const { t } = useTranslation();
+
+  const openLevel = (): number => {
+    return 100 - device.states.closeLevel;
+  };
+
   return (
     <Box className="shutter">
       <Grid container className="header">
@@ -70,22 +77,21 @@ const ShutterDevice = ({ device }: Props) => {
         {/* Informations */}
         <Box className="infos center w-100">
           <Typography variant="h6">{device.label}</Typography>
-          <Typography variant="caption">Open at xx%</Typography>
+          <Typography variant="caption">
+            {t('shutter.openAt', { level: openLevel() })}
+          </Typography>
         </Box>
 
         <Box className="slider-container">
           <Button variant="contained" className="btn-default">
-            Open
+            {t('shutter.open')}
           </Button>
           {/* Slider */}
           <Slider
             size="small"
             // key={`slider-${deviceState?.properties?.brightness}`}
-            // defaultValue={deviceState?.properties?.brightness}
-            // disabled={
-            //   !deviceState?.properties?.online ||
-            //   deviceState?.properties.powerState === 'off'
-            // }
+            defaultValue={openLevel()}
+            disabled={!device.available && !device.enabled}
             aria-label="shutter level slider"
             valueLabelDisplay="auto"
             className="slider"
@@ -93,7 +99,7 @@ const ShutterDevice = ({ device }: Props) => {
             // onChangeCommitted={handleBrightnessChange}
           />
           <Button variant="contained" className="btn-default">
-            Close
+            {t('shutter.close')}
           </Button>
         </Box>
       </Grid>
