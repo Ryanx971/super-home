@@ -1,6 +1,6 @@
+import axios from 'axios';
 import { SOMFY } from '../config/configuration';
 import { devicesStateMapping } from '../utils/mappings/somfy.mapping';
-import axios from './axios.service';
 
 const DEFAULT_HEADERS = {
   Authorization: `Bearer ${SOMFY.api.token}`,

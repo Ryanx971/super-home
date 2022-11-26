@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { AxiosRequestConfig } from 'axios';
 import { GOVEE } from '../config/configuration';
 import { deviceStateMapping } from '../utils/mappings/govee.mapping';
-import axios from './axios.service';
 
 const DEFAULT_HEADERS = {
   [GOVEE.ApiKeyName]: GOVEE.ApiKeyValue,
