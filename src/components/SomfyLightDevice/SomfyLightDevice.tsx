@@ -103,8 +103,8 @@ const SomfyLightDevice = ({ device }: Props) => {
               // checked={deviceState?.properties?.powerState === 'on'}
               checked={false}
               disabled={!device.available || !device.enabled}
-              // onChange={handlePowerStateChange}
-              onChange={() => console.log('Not implemented')}
+              onChange={handlePowerStateChange}
+              // onChange={() => console.log('Not implemented')}
               small={true}
             />
           </Box>
@@ -120,8 +120,4 @@ const SomfyLightDevice = ({ device }: Props) => {
 };
 
 export default SomfyLightDevice;
-
-function updateDeviceControl(payload: any, arg1: { onSuccess: () => void }) {
-  throw new Error('Function not implemented.');
-}
 

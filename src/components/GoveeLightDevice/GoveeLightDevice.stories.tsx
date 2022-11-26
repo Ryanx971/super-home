@@ -1,10 +1,9 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import GoveeLightDevice from './GoveeLightDevice';
 import { GOVEE } from '../../config/configuration';
 
 export default {
-  title: 'Light Device',
+  title: 'Govee Light Device',
   component: GoveeLightDevice,
 } as ComponentMeta<typeof GoveeLightDevice>;
 

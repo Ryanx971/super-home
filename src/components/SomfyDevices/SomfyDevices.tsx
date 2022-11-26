@@ -1,6 +1,6 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useDevicesList } from '../../hooks/somfy.hooks';
+import { useDevicesList, useEventsRegister } from '../../hooks/somfy.hooks';
 import { Device, DeviceType } from '../../models/somfy-device.model';
 import AlertActions from '../AlertActions';
 import ShutterDevice from '../ShutterDevice';
@@ -12,6 +12,7 @@ import './SomfyDevices.scss';
 const SomfyDevices = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevicesList();
+  // const { data: eventsToken } = useEventsRegister();
 
   const somfyDevices: Device[] | undefined = data;
   return (

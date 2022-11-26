@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getDevicesList, sendDeviceCommand } from '../services/somfy.service';
+import {
+  getDevicesList,
+  sendDeviceCommand,
+  eventsRegister,
+} from '../services/somfy.service';
 import { CONSTANTS } from '../config/configuration';
 
 const useDevicesList = () => {
@@ -14,5 +18,11 @@ const useDeviceCommand = () => {
   });
 };
 
-export { useDevicesList, useDeviceCommand };
+const useEventsRegister = () => {
+  return useQuery(['somfy-events-register'], () => eventsRegister(), {
+    staleTime: CONSTANTS.DEFAULT_STALETIME,
+  });
+};
+
+export { useDevicesList, useDeviceCommand, useEventsRegister };
 
