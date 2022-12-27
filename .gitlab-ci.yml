@@ -6,9 +6,9 @@ stages:
 unit-test:
   stage: test
   before_script:
-    - npm install
+    - pnpm install
   script:
-    - npm run test:ci
+    - pnpm run test:ci
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
   artifacts:
     paths:
