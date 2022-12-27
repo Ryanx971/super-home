@@ -10,9 +10,9 @@ const Home = () => {
       <section id="govee">
         <GoveeDevices />
       </section>
-      {/* <section id="somfy">
+      <section id="somfy">
         <SomfyDevices />
-      </section> */}
+      </section>
     </Container>
   );
 };

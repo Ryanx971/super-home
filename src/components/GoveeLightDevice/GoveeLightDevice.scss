@@ -27,17 +27,11 @@
       .icons-list {
         display: flex;
         justify-content: flex-end;
-        align-items: center;
+        align-items: baseline;
 
         .refresh-button,
         .color-picker-button {
           padding: 0;
-          margin-right: 0.5rem;
-        }
-
-        .color-primary,
-        .color-gray,
-        .color-error {
           margin-right: 0.5rem;
         }
       }

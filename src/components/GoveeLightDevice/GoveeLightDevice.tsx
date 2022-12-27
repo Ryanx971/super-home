@@ -126,7 +126,9 @@ const GoveeLightDevice = ({ device }: Props) => {
           <Box className="icons-list">
             {/* Error */}
             {isDeviceError && (
-              <ReportProblem fontSize="small" className="color-error" />
+              <Box className="mr-05">
+                <ReportProblem fontSize="small" className="color-error" />
+              </Box>
             )}
 
             {/* Refresh button */}
@@ -134,7 +136,7 @@ const GoveeLightDevice = ({ device }: Props) => {
               color="primary"
               aria-label="refresh device data"
               component="button"
-              className="refresh-button"
+              className="refresh-button mr-05"
               onClick={() => refreshDevice({ throwOnError: true })}
             >
               <input hidden accept="image/*" type="file" />
@@ -153,12 +155,14 @@ const GoveeLightDevice = ({ device }: Props) => {
               transformOriginHorizontal="center"
             />
 
-            {/* Online button  */}
-            {deviceState?.properties?.online ? (
-              <WifiOutlined fontSize="small" className="color-primary" />
-            ) : (
-              <WifiOffOutlined fontSize="small" className="color-gray" />
-            )}
+            <Box className="mr-05">
+              {/* Online button  */}
+              {deviceState?.properties?.online ? (
+                <WifiOutlined fontSize="small" className="color-primary" />
+              ) : (
+                <WifiOffOutlined fontSize="small" className="color-gray" />
+              )}
+            </Box>
 
             <ToggleSwitch
               id={device.deviceName}

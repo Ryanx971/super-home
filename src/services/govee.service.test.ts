@@ -1,8 +1,6 @@
-// import axios from 'axios';
 import axios from 'axios';
 import * as mapping from '../utils/mappings/govee.mapping';
-import { getDevicesList, getDeviceState } from './govee.service';
-import devicesListResponse from '../resources/test/govee/govee-devices-list-response';
+import { getDeviceState } from './govee.service';
 import {
   deviceStateResponse,
   deviceStateMapped,
@@ -10,20 +8,12 @@ import {
 
 jest.mock('axios');
 
-describe.only('Govee service', () => {
+describe('Govee service', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  test('getDevicesList', async () => {
-    (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue({
-      data: devicesListResponse,
-    });
-    const result = await getDevicesList();
-    expect(result).toEqual(devicesListResponse.data);
-  });
-
-  test('getDeviceState', async () => {
+  test('getDeviceState - should apply mapping', async () => {
     const deviceMappingSpy = jest.spyOn(mapping, 'deviceStateMapping');
 
     (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue({
@@ -34,6 +24,4 @@ describe.only('Govee service', () => {
     expect(deviceMappingSpy).toHaveBeenCalled();
   });
 });
-
-export {};
 

@@ -16,7 +16,7 @@ export interface Device {
   };
   controllable: boolean;
   retrievable: boolean;
-  supportCmds: [string, string, string, string];
+  supportCmds: string[];
 }
 
 interface DeviceProperties {

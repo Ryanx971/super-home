@@ -8,7 +8,9 @@ export const SOMFY = {
   pinCode: '2006-4441-1365',
   api: {
     baseUrl:
+      // TODO: to remove when resolve SSL problems
       'https://gateway-2006-4441-1365.local:8443/enduser-mobile-web/1/enduserAPI',
+    // 'https://2006-4441-1365.local:8443/enduser-mobile-web/1/enduserAPI',
     token: process.env.REACT_APP_SOMFY_TOKEN || 'token',
   },
 };
