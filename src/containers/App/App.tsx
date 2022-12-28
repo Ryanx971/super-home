@@ -8,14 +8,12 @@ import Heating from '../Heating';
 const App = () => {
   return (
     <Router>
-      <div>
-        <Sidebar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Home />} />
-          <Route path="/heating" element={<Heating />} />
-        </Routes>
-      </div>
+      <Sidebar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Home />} />
+        <Route path="/heating" element={<Heating />} />
+      </Routes>
     </Router>
   );
 };

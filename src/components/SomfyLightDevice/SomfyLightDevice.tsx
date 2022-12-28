@@ -1,5 +1,6 @@
 import {
   RefreshOutlined,
+  ReportProblem,
   WbIncandescentOutlined,
   WifiOffOutlined,
   WifiOutlined,
@@ -76,7 +77,7 @@ const SomfyLightDevice = ({ device }: Props) => {
           <Box className="icons-list">
             {/* Error */}
             {/* {isDeviceError && (
-              <ReportProblem fontSize="small" className="color-error" />
+              <ReportProblem fontSize="small" className="color-error mr-05" />
             )} */}
 
             {/* Refresh button */}
@@ -84,7 +85,8 @@ const SomfyLightDevice = ({ device }: Props) => {
               color="primary"
               aria-label="refresh device data"
               component="button"
-              className="refresh-button"
+              className="refresh-button mr-05"
+              size="small"
               // onClick={() => refreshDevice({ throwOnError: true })}
             >
               <input hidden accept="image/*" type="file" />
@@ -93,9 +95,9 @@ const SomfyLightDevice = ({ device }: Props) => {
 
             {/* Online button  */}
             {device.available && device.enabled ? (
-              <WifiOutlined fontSize="small" className="color-primary" />
+              <WifiOutlined fontSize="small" className="color-primary mr-05" />
             ) : (
-              <WifiOffOutlined fontSize="small" className="color-gray" />
+              <WifiOffOutlined fontSize="small" className="color-gray mr-05" />
             )}
 
             <ToggleSwitch
@@ -104,7 +106,6 @@ const SomfyLightDevice = ({ device }: Props) => {
               checked={false}
               disabled={!device.available || !device.enabled}
               onChange={handlePowerStateChange}
-              // onChange={() => console.log('Not implemented')}
               small={true}
             />
           </Box>

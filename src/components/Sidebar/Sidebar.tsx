@@ -37,7 +37,7 @@ const Sidebar = () => {
   }, [location]);
 
   return (
-    <Box className="sidebar-container">
+    <aside className="sidebar-container">
       <Box className="group-icons">
         {sidebarNavItems.map((item: NavItem, index: number) => (
           <Box
@@ -48,7 +48,7 @@ const Sidebar = () => {
           </Box>
         ))}
       </Box>
-    </Box>
+    </aside>
   );
 };
 

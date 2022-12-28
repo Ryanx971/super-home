@@ -7,12 +7,10 @@
   align-items: center;
   background-color: $color-white;
   gap: 2rem;
-  position: absolute;
+  position: fixed;
   width: 5rem;
-  height: 100%;
   min-height: 100%;
   left: 0;
-  top: 0;
 
   .group-icons {
     display: flex;

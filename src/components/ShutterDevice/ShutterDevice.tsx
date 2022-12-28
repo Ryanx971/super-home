@@ -1,7 +1,7 @@
 import {
   Blinds,
   RefreshOutlined,
-  SettingsSuggest,
+  Favorite,
   WifiOffOutlined,
   WifiOutlined,
 } from '@mui/icons-material';
@@ -39,7 +39,7 @@ const ShutterDevice = ({ device }: Props) => {
           <Box className="icons-list">
             {/* Error */}
             {/* {isDeviceError && (
-          <ReportProblem fontSize="small" className="color-error" />
+          <ReportProblem fontSize="small" className="color-error mr-05" />
         )} */}
 
             {/* Refresh button */}
@@ -47,7 +47,8 @@ const ShutterDevice = ({ device }: Props) => {
               color="primary"
               aria-label="refresh device data"
               component="button"
-              className="refresh-button"
+              className="refresh-button mr-05"
+              size="small"
               // onClick={() => refreshDevice({ throwOnError: true })}
             >
               <input hidden accept="image/*" type="file" />
@@ -59,18 +60,19 @@ const ShutterDevice = ({ device }: Props) => {
               color="primary"
               aria-label="favorite position button"
               component="button"
-              className="favorite-position-button"
+              className="favorite-position-button mr-05"
+              size="small"
               // onClick={() => refreshDevice({ throwOnError: true })}
             >
               <input hidden accept="image/*" type="file" />
-              <SettingsSuggest fontSize="small" className="color-primary" />
+              <Favorite fontSize="small" className="color-primary" />
             </IconButton>
 
             {/* Online button  */}
             {device.available && device.enabled ? (
-              <WifiOutlined fontSize="small" className="color-primary" />
+              <WifiOutlined fontSize="small" className="color-primary mr-05" />
             ) : (
-              <WifiOffOutlined fontSize="small" className="color-gray" />
+              <WifiOffOutlined fontSize="small" className="color-gray mr-05" />
             )}
           </Box>
         </Grid>

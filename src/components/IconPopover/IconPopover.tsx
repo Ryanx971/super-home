@@ -41,11 +41,12 @@ const IconPopover = ({
   const popOverClasses = `popover-container ${classes}`;
 
   return (
-    <>
+    <Box>
       <IconButton
         aria-describedby={id}
         aria-label="color picker"
         component="button"
+        size="small"
         className="color-picker-button"
         disabled={disabled}
         onClick={handleClick}
@@ -72,7 +73,7 @@ const IconPopover = ({
       >
         <Box className={popOverClasses}>{children}</Box>
       </Popover>
-    </>
+    </Box>
   );
 };
 

@@ -136,6 +136,7 @@ const GoveeLightDevice = ({ device }: Props) => {
               color="primary"
               aria-label="refresh device data"
               component="button"
+              size="small"
               className="refresh-button mr-05"
               onClick={() => refreshDevice({ throwOnError: true })}
             >
@@ -155,14 +156,12 @@ const GoveeLightDevice = ({ device }: Props) => {
               transformOriginHorizontal="center"
             />
 
-            <Box className="mr-05">
-              {/* Online button  */}
-              {deviceState?.properties?.online ? (
-                <WifiOutlined fontSize="small" className="color-primary" />
-              ) : (
-                <WifiOffOutlined fontSize="small" className="color-gray" />
-              )}
-            </Box>
+            {/* Online icon  */}
+            {deviceState?.properties?.online ? (
+              <WifiOutlined fontSize="small" className="color-primary mr-05" />
+            ) : (
+              <WifiOffOutlined fontSize="small" className="color-gray mr-05" />
+            )}
 
             <ToggleSwitch
               id={device.deviceName}
