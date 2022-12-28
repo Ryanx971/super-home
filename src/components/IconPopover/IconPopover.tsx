@@ -51,7 +51,6 @@ const IconPopover = ({
         disabled={disabled}
         onClick={handleClick}
       >
-        <input hidden accept="image/*" type="file" />
         <ColorLensOutlined
           fontSize="small"
           className={disabled ? 'color-gray' : 'color-primary'}

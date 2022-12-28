@@ -1,6 +1,6 @@
 import { Box, Button, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useDevicesList } from '../../hooks/govee.hooks';
+import { useDevices } from '../../hooks/govee.hooks';
 import { Device } from '../../models/govee-device.model';
 import AlertActions from '../AlertActions';
 import GoveeLightDevice from '../GoveeLightDevice';
@@ -10,7 +10,7 @@ import './GoveeDevices.scss';
 
 const GoveeDevices = () => {
   const { t } = useTranslation();
-  const { data, error, isFetching, isError, refetch } = useDevicesList();
+  const { data, error, isFetching, isError, refetch } = useDevices();
   const goveeDevices: [Device] = data?.devices;
 
   return (

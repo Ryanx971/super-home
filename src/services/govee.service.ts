@@ -7,7 +7,7 @@ const DEFAULT_HEADERS = {
   [GOVEE.ApiKeyName]: GOVEE.ApiKeyValue,
 };
 
-const getDevicesList = async () => {
+const getDevices = async () => {
   return axios
     .get(`${GOVEE.baseUrl}/devices`, { headers: DEFAULT_HEADERS })
     .then(({ data: response }) => response.data);
@@ -32,5 +32,5 @@ const sendDeviceControl = async (data: any) => {
     .then(({ data: response }) => response.data);
 };
 
-export { getDevicesList, getDeviceState, sendDeviceControl };
+export { getDevices, getDeviceState, sendDeviceControl };
 

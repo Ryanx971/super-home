@@ -1,28 +1,40 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import {
-  getDevicesList,
-  sendDeviceCommand,
-  eventsRegister,
-} from '../services/somfy.service';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getDevices, getDevice, sendCommand } from '../services/somfy.service';
 import { CONSTANTS } from '../config/configuration';
+import { Device } from '../models/somfy-device.model';
 
-const useDevicesList = () => {
-  return useQuery(['somfy-devices-list'], () => getDevicesList(), {
+const useDevices = () => {
+  return useQuery(['somfy-devices'], () => getDevices(), {
     staleTime: CONSTANTS.DEFAULT_STALETIME,
   });
 };
 
-const useDeviceCommand = () => {
+const useDevice = (deviceURL: string) => {
+  const queryClient = useQueryClient();
+  return useQuery(['somfy-device', deviceURL], () => getDevice(deviceURL), {
+    staleTime: CONSTANTS.DEFAULT_STALETIME,
+    // Disable this query from automatically running
+    enabled: false,
+    refetchOnWindowFocus: false,
+    onSuccess: (device: Device) => {
+      queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
+        const index: number = currentDevices.findIndex(
+          (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
+        );
+        if (index !== -1) {
+          currentDevices[index] = device;
+        }
+        return currentDevices;
+      });
+    },
+  });
+};
+
+const useSendCommand = () => {
   return useMutation((data) => {
-    return sendDeviceCommand(data);
+    return sendCommand(data);
   });
 };
 
-const useEventsRegister = () => {
-  return useQuery(['somfy-events-register'], () => eventsRegister(), {
-    staleTime: CONSTANTS.DEFAULT_STALETIME,
-  });
-};
-
-export { useDevicesList, useDeviceCommand, useEventsRegister };
+export { useDevices, useDevice, useSendCommand };
 

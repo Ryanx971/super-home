@@ -33,6 +33,19 @@ export interface DeviceState {
   isOpen: boolean;
 }
 
+export interface DeviceShutterState {
+  status: string;
+  isMoving: boolean;
+  closeTarget: number;
+  memorized1Position: number;
+  closeLevel: number;
+  isOpen: boolean;
+}
+
+export interface DeviceLightState {
+  isOn: boolean;
+}
+
 export enum DeviceType {
   SHUTTER = 'io:RollerShutterGenericIOComponent',
   LIGHT = 'rts:LightRTSComponent',

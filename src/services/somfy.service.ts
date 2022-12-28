@@ -1,18 +1,59 @@
 import axios from 'axios';
 import { SOMFY } from '../config/configuration';
-import { devicesStateMapping } from '../utils/mappings/somfy.mapping';
+import {
+  DeviceRequestResponse,
+  DeviceType,
+} from '../models/somfy-device.model';
+import { deviceStateMapping } from '../utils/mappings/somfy.mapping';
 
 const DEFAULT_HEADERS = {
   Authorization: `Bearer ${SOMFY.api.token}`,
 };
 
-const getDevicesList = async () => {
+const MANAGED_DEVICES: string[] = [
+  DeviceType.SHUTTER,
+  DeviceType.LIGHT,
+  DeviceType.HEATING,
+];
+
+const getDevices = async () => {
   return axios
     .get(`${SOMFY.api.baseUrl}/setup/devices`, { headers: DEFAULT_HEADERS })
-    .then(({ data }) => devicesStateMapping(data));
+    .then(({ data }) => {
+      const devices: [DeviceRequestResponse] = data;
+      return devices
+        .filter(({ controllableName }) => {
+          // Filter by only managed devices
+          return MANAGED_DEVICES.includes(controllableName);
+        })
+        .map((device: DeviceRequestResponse) => {
+          return deviceStateMapping(device);
+        })
+        .sort((a, b) => {
+          // Sort by controllable type
+          if (
+            a.controllableName.toLocaleLowerCase() <
+            b.controllableName.toLocaleLowerCase()
+          ) {
+            return 1;
+          }
+          return -1;
+        });
+    });
 };
 
-const sendDeviceCommand = async (data: any) => {
+const getDevice = async (deviceURL: string) => {
+  return axios
+    .get(
+      `${SOMFY.api.baseUrl}/setup/devices/${encodeURIComponent(deviceURL)}`,
+      {
+        headers: DEFAULT_HEADERS,
+      }
+    )
+    .then(({ data }) => deviceStateMapping(data));
+};
+
+const sendCommand = async (data: any) => {
   return axios
     .post(`${SOMFY.api.baseUrl}/exec/apply`, data, {
       headers: DEFAULT_HEADERS,
@@ -20,17 +61,5 @@ const sendDeviceCommand = async (data: any) => {
     .then(({ data: response }) => response);
 };
 
-const eventsRegister = async () => {
-  return axios
-    .post(
-      `${SOMFY.api.baseUrl}/events/register`,
-      {},
-      {
-        headers: DEFAULT_HEADERS,
-      }
-    )
-    .then(({ data: response }) => response);
-};
-
-export { getDevicesList, sendDeviceCommand, eventsRegister };
+export { getDevices, getDevice, sendCommand };
 

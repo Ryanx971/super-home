@@ -2,6 +2,7 @@ import {
   Blinds,
   Favorite,
   RefreshOutlined,
+  ReportProblem,
   WifiOffOutlined,
   WifiOutlined,
 } from '@mui/icons-material';
@@ -15,8 +16,9 @@ import {
 } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useDeviceCommand } from '../../hooks/somfy.hooks';
+import { useSendCommand, useDevice } from '../../hooks/somfy.hooks';
 import { Device } from '../../models/somfy-device.model';
+import Spinner from '../Spinner';
 
 import './ShutterDevice.scss';
 
@@ -27,15 +29,23 @@ interface Props {
 const ShutterDevice = ({ device }: Props) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
-  const { isLoading, mutate: sendDeviceCommand } = useDeviceCommand();
+  const {
+    isLoading: isCommandLoading,
+    isError: isCommandError,
+    mutate: sendCommand,
+  } = useSendCommand();
+  const {
+    isFetching: getDeviceFetching,
+    isError: getDeviceIsError,
+    refetch: getDeviceRefetch,
+  } = useDevice(device.deviceURL);
 
   const openLevel = (): number => {
     return 100 - device.states.closeLevel;
   };
 
   const handleShutterLevelChange = (value: number | number[]): void => {
-    const newPosition: number = 100 - Number(value); // TODO: is it nice ?
+    const newCloseLevel: number = 100 - Number(value); // TODO: is it clean ?
     const payload: any = {
       label: `Set shutter level ${value}% - ${device.label}`,
       actions: [
@@ -43,22 +53,29 @@ const ShutterDevice = ({ device }: Props) => {
           commands: [
             {
               name: 'setPosition',
-              parameters: [newPosition],
+              parameters: [newCloseLevel],
             },
           ],
           deviceURL: device.deviceURL,
         },
       ],
     };
-    sendDeviceCommand(payload, {
+    sendCommand(payload, {
       onSuccess: () => {
-        queryClient.setQueryData(
-          ['somfy-devices-list'],
-          (currentDevices: any) => {
-            // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
-            return currentDevices;
+        queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
+          const currentDevice: Device | undefined = currentDevices.find(
+            (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
+          );
+          if (currentDevice) {
+            currentDevice.states = {
+              ...currentDevice.states,
+              closeLevel: newCloseLevel,
+              closeTarget: newCloseLevel,
+              isOpen: newCloseLevel !== 100,
+            };
           }
-        );
+          return currentDevices;
+        });
       },
     });
   };
@@ -77,21 +94,36 @@ const ShutterDevice = ({ device }: Props) => {
         },
       ],
     };
-    sendDeviceCommand(payload, {
+    sendCommand(payload, {
       onSuccess: () => {
-        queryClient.setQueryData(
-          ['somfy-devices-list'],
-          (currentDevices: any) => {
-            // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
-            return currentDevices;
+        queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
+          const currentDevice: Device | undefined = currentDevices.find(
+            (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
+          );
+          if (currentDevice) {
+            // Close level became memorized position
+            const closeLevel: number = currentDevice?.states.memorized1Position;
+            currentDevice.states = {
+              ...currentDevice.states,
+              closeLevel,
+              closeTarget: closeLevel,
+              isOpen: closeLevel !== 100,
+            };
           }
-        );
+          return currentDevices;
+        });
       },
     });
   };
 
   return (
-    <Box className="shutter">
+    <Box
+      className={
+        'shutter ' +
+        (isCommandLoading || getDeviceFetching ? 'bg-disabled' : '')
+      }
+    >
+      {(isCommandLoading || getDeviceFetching) && <Spinner />}
       <Grid container className="header">
         <Grid item xs={4} className="icon">
           <Blinds className="color-primary" fontSize="large" />
@@ -99,9 +131,9 @@ const ShutterDevice = ({ device }: Props) => {
         <Grid item xs={8}>
           <Box className="icons-list">
             {/* Error */}
-            {/* {isDeviceError && (
-          <ReportProblem fontSize="small" className="color-error mr-05" />
-        )} */}
+            {(isCommandError || getDeviceIsError) && (
+              <ReportProblem fontSize="small" className="color-error mr-05" />
+            )}
 
             {/* Refresh button */}
             <IconButton
@@ -110,9 +142,8 @@ const ShutterDevice = ({ device }: Props) => {
               component="button"
               className="refresh-button mr-05"
               size="small"
-              // onClick={() => refreshDevice({ throwOnError: true })}
+              onClick={() => getDeviceRefetch({ throwOnError: true })}
             >
-              <input hidden accept="image/*" type="file" />
               <RefreshOutlined fontSize="small" className="color-primary" />
             </IconButton>
 
@@ -125,7 +156,6 @@ const ShutterDevice = ({ device }: Props) => {
               size="small"
               onClick={() => setFavoritePosition()}
             >
-              <input hidden accept="image/*" type="file" />
               <Favorite fontSize="small" className="color-primary" />
             </IconButton>
 
@@ -137,6 +167,7 @@ const ShutterDevice = ({ device }: Props) => {
             )}
           </Box>
         </Grid>
+
         {/* Informations */}
         <Box className="infos center w-100">
           <Typography variant="h6">{device.label}</Typography>
@@ -153,10 +184,11 @@ const ShutterDevice = ({ device }: Props) => {
           >
             {t('shutter.open')}
           </Button>
+
           {/* Slider */}
           <Slider
             size="small"
-            key={`slider-${device.states.closeLevel}`}
+            key={`slider-${openLevel()}`}
             defaultValue={openLevel()}
             disabled={!device.available && !device.enabled}
             aria-label="shutter level slider"

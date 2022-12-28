@@ -140,7 +140,6 @@ const GoveeLightDevice = ({ device }: Props) => {
               className="refresh-button mr-05"
               onClick={() => refreshDevice({ throwOnError: true })}
             >
-              <input hidden accept="image/*" type="file" />
               <RefreshOutlined fontSize="small" className="color-primary" />
             </IconButton>
 

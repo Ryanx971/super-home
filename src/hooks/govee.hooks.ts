@@ -1,14 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Device } from '../models/govee-device.model';
 import {
-  getDevicesList,
+  getDevices,
   getDeviceState,
   sendDeviceControl,
 } from '../services/govee.service';
 import { CONSTANTS } from '../config/configuration';
 
-const useDevicesList = () => {
-  return useQuery(['govee-devices-list'], () => getDevicesList(), {
+const useDevices = () => {
+  return useQuery(['govee-devices'], () => getDevices(), {
     staleTime: CONSTANTS.DEFAULT_STALETIME,
   });
 };
@@ -29,5 +29,5 @@ const useDeviceControlUpdate = () => {
   });
 };
 
-export { useDevicesList, useDeviceState, useDeviceControlUpdate };
+export { useDevices, useDeviceState, useDeviceControlUpdate };
 

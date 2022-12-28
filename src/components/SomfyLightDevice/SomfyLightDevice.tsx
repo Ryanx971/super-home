@@ -3,12 +3,13 @@ import {
   WbIncandescentOutlined,
   WifiOffOutlined,
   WifiOutlined,
+  ReportProblem,
 } from '@mui/icons-material';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
-import { useDeviceCommand } from '../../hooks/somfy.hooks';
+import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
 import { Device } from '../../models/somfy-device.model';
-import ToggleSwitch from '../ToggleSwitch';
+import Spinner from '../Spinner';
 
 import './SomfyLightDevice.scss';
 
@@ -18,8 +19,16 @@ interface Props {
 
 const SomfyLightDevice = ({ device }: Props) => {
   const queryClient = useQueryClient();
-  // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
-  const { isLoading, mutate: sendDeviceCommand } = useDeviceCommand();
+  const {
+    isLoading: isCommandLoading,
+    isError: isCommandError,
+    mutate: sendCommand,
+  } = useSendCommand();
+  const {
+    isFetching: getDeviceFetching,
+    isError: getDeviceIsError,
+    refetch: getDeviceRefetch,
+  } = useDevice(device.deviceURL);
 
   const handlePowerStateChange = (checked: boolean): void => {
     const newValue = checked ? 'on' : 'off';
@@ -36,37 +45,30 @@ const SomfyLightDevice = ({ device }: Props) => {
         },
       ],
     };
-    sendDeviceCommand(payload, {
+    sendCommand(payload, {
       onSuccess: () => {
-        queryClient.setQueryData(
-          ['somfy-devices-list'],
-          (currentDevices: any) => {
-            // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
-            // const currentDevice: Device = currentDevices.find(
-            //   (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
-            // );
-            // if(currentDevice) {
-            //   currentDevice.states.
-            // }
-            return currentDevices;
-          }
-        );
+        queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
+          // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
+          // const currentDevice: Device = currentDevices.find(
+          //   (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
+          // );
+          // if(currentDevice) {
+          //   currentDevice.states.
+          // }
+          return currentDevices;
+        });
       },
     });
   };
 
-  // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
   return (
     <Box
       className={
-        'device-card '
-        // (isDeviceFetching || isDeviceControlUpdateLoading ? 'bg-disabled ' : '')
-        // (isDeviceFetching ? 'bg-disabled ' : '')
+        'device-card ' +
+        (isCommandLoading || getDeviceFetching ? 'bg-disabled ' : '')
       }
     >
-      {/* {(isDeviceRefetching || isDeviceControlUpdateLoading) && <Spinner />} */}
-      {/* {isDeviceRefetching && <Spinner />} */}
-
+      {(isCommandLoading || getDeviceFetching) && <Spinner />}
       <Grid container className="header">
         <Grid item xs={3} className="left-content">
           <WbIncandescentOutlined className="color-primary" fontSize="large" />
@@ -75,9 +77,9 @@ const SomfyLightDevice = ({ device }: Props) => {
         <Grid item xs={7} className="right-content">
           <Box className="icons-list">
             {/* Error */}
-            {/* {isDeviceError && (
+            {(isCommandError || getDeviceIsError) && (
               <ReportProblem fontSize="small" className="color-error mr-05" />
-            )} */}
+            )}
 
             {/* Refresh button */}
             <IconButton
@@ -86,9 +88,8 @@ const SomfyLightDevice = ({ device }: Props) => {
               component="button"
               className="refresh-button mr-05"
               size="small"
-              // onClick={() => refreshDevice({ throwOnError: true })}
+              onClick={() => getDeviceRefetch({ throwOnError: true })}
             >
-              <input hidden accept="image/*" type="file" />
               <RefreshOutlined fontSize="small" className="color-primary" />
             </IconButton>
 
@@ -98,18 +99,33 @@ const SomfyLightDevice = ({ device }: Props) => {
             ) : (
               <WifiOffOutlined fontSize="small" className="color-gray mr-05" />
             )}
-
-            <ToggleSwitch
-              id={device.label}
-              // checked={deviceState?.properties?.powerState === 'on'}
-              checked={false}
-              disabled={!device.available || !device.enabled}
-              onChange={handlePowerStateChange}
-              small={true}
-            />
           </Box>
         </Grid>
       </Grid>
+      {/* Todo: A REVOIR COMPLETEMENT */}
+      {device.available && device.enabled && (
+        <Grid className="power-state-buttons" container>
+          <Grid item xs={6} className="button-container">
+            <Button
+              size="medium"
+              className="somfy-light-button"
+              onClick={() => handlePowerStateChange(true)}
+            >
+              Turn ON
+            </Button>
+          </Grid>
+
+          <Grid item xs={6} className="button-container">
+            <Button
+              size="medium"
+              className="somfy-light-button"
+              onClick={() => handlePowerStateChange(false)}
+            >
+              Turn OFF
+            </Button>
+          </Grid>
+        </Grid>
+      )}
       {/* Description */}
       <Box className="content">
         <Typography variant="h6">{device.label}</Typography>

@@ -37,8 +37,21 @@
     }
   }
 
-  .content {
-    margin-top: 1rem;
+  .power-state-buttons {
+    margin: 1.5rem 0;
+
+    .button-container {
+      text-align: center;
+
+      .somfy-light-button {
+        background-color: #f7f6ff;
+        color: $color-primary;
+        border-radius: 20px;
+        padding: 1rem;
+        text-align: center;
+        text-transform: none;
+      }
+    }
   }
 }
 

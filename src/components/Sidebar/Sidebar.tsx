@@ -1,4 +1,6 @@
-import { HomeOutlined, LocalFireDepartmentOutlined } from '@mui/icons-material';
+import {
+  HomeOutlined /*,LocalFireDepartmentOutlined*/,
+} from '@mui/icons-material';
 import { Box } from '@mui/material';
 import { ReactElement, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -17,11 +19,11 @@ const sidebarNavItems: NavItem[] = [
     content: <HomeOutlined className="icon" fontSize="large" />,
     to: '/dashboard',
   },
-  {
-    id: 'heating',
-    content: <LocalFireDepartmentOutlined className="icon" fontSize="large" />,
-    to: '/heating',
-  },
+  // {
+  //   id: 'heating',
+  //   content: <LocalFireDepartmentOutlined className="icon" fontSize="large" />,
+  //   to: '/heating',
+  // },
 ];
 
 const Sidebar = () => {
