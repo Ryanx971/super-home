@@ -1,6 +1,5 @@
 import {
   RefreshOutlined,
-  ReportProblem,
   WbIncandescentOutlined,
   WifiOffOutlined,
   WifiOutlined,
@@ -25,7 +24,7 @@ const SomfyLightDevice = ({ device }: Props) => {
   const handlePowerStateChange = (checked: boolean): void => {
     const newValue = checked ? 'on' : 'off';
     const payload: any = {
-      label: `Set Power State ${newValue}`,
+      label: `Set power state ${newValue} - ${device.label}`,
       actions: [
         {
           commands: [

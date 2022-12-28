@@ -1,7 +1,7 @@
 import {
   Blinds,
-  RefreshOutlined,
   Favorite,
+  RefreshOutlined,
   WifiOffOutlined,
   WifiOutlined,
 } from '@mui/icons-material';
@@ -13,7 +13,9 @@ import {
   Slider,
   Typography,
 } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { useDeviceCommand } from '../../hooks/somfy.hooks';
 import { Device } from '../../models/somfy-device.model';
 
 import './ShutterDevice.scss';
@@ -24,9 +26,68 @@ interface Props {
 
 const ShutterDevice = ({ device }: Props) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
+  const { isLoading, mutate: sendDeviceCommand } = useDeviceCommand();
 
   const openLevel = (): number => {
     return 100 - device.states.closeLevel;
+  };
+
+  const handleShutterLevelChange = (value: number | number[]): void => {
+    const newPosition: number = 100 - Number(value); // TODO: is it nice ?
+    const payload: any = {
+      label: `Set shutter level ${value}% - ${device.label}`,
+      actions: [
+        {
+          commands: [
+            {
+              name: 'setPosition',
+              parameters: [newPosition],
+            },
+          ],
+          deviceURL: device.deviceURL,
+        },
+      ],
+    };
+    sendDeviceCommand(payload, {
+      onSuccess: () => {
+        queryClient.setQueryData(
+          ['somfy-devices-list'],
+          (currentDevices: any) => {
+            // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
+            return currentDevices;
+          }
+        );
+      },
+    });
+  };
+
+  const setFavoritePosition = (): void => {
+    const payload: any = {
+      label: `Set shutter favorite position - ${device.label}`,
+      actions: [
+        {
+          commands: [
+            {
+              name: 'my',
+            },
+          ],
+          deviceURL: device.deviceURL,
+        },
+      ],
+    };
+    sendDeviceCommand(payload, {
+      onSuccess: () => {
+        queryClient.setQueryData(
+          ['somfy-devices-list'],
+          (currentDevices: any) => {
+            // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
+            return currentDevices;
+          }
+        );
+      },
+    });
   };
 
   return (
@@ -62,7 +123,7 @@ const ShutterDevice = ({ device }: Props) => {
               component="button"
               className="favorite-position-button mr-05"
               size="small"
-              // onClick={() => refreshDevice({ throwOnError: true })}
+              onClick={() => setFavoritePosition()}
             >
               <input hidden accept="image/*" type="file" />
               <Favorite fontSize="small" className="color-primary" />
@@ -85,22 +146,32 @@ const ShutterDevice = ({ device }: Props) => {
         </Box>
 
         <Box className="slider-container">
-          <Button variant="contained" className="btn-default">
+          <Button
+            variant="contained"
+            className="btn-default"
+            onClick={() => handleShutterLevelChange(100)}
+          >
             {t('shutter.open')}
           </Button>
           {/* Slider */}
           <Slider
             size="small"
-            // key={`slider-${deviceState?.properties?.brightness}`}
+            key={`slider-${device.states.closeLevel}`}
             defaultValue={openLevel()}
             disabled={!device.available && !device.enabled}
             aria-label="shutter level slider"
             valueLabelDisplay="auto"
             className="slider"
             orientation="vertical"
-            // onChangeCommitted={handleBrightnessChange}
+            onChangeCommitted={(event, newValue) =>
+              handleShutterLevelChange(newValue)
+            }
           />
-          <Button variant="contained" className="btn-default">
+          <Button
+            variant="contained"
+            className="btn-default"
+            onClick={() => handleShutterLevelChange(0)}
+          >
             {t('shutter.close')}
           </Button>
         </Box>
