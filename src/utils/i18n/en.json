@@ -1,6 +1,9 @@
 {
   "common": {
-    "error": "Erreur"
+    "error": "Error",
+    "name": {
+      "initials": "RB"
+    }
   },
   "homePage": {
     "title": "All devices",

@@ -5,8 +5,14 @@ import {
   WifiOutlined,
   ReportProblem,
 } from '@mui/icons-material';
-import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
-import { useQueryClient } from '@tanstack/react-query';
+import {
+  Box,
+  Grid,
+  IconButton,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from '@mui/material';
 import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
 import { Device } from '../../models/somfy-device.model';
 import Spinner from '../Spinner';
@@ -18,7 +24,6 @@ interface Props {
 }
 
 const SomfyLightDevice = ({ device }: Props) => {
-  const queryClient = useQueryClient();
   const {
     isLoading: isCommandLoading,
     isError: isCommandError,
@@ -30,35 +35,24 @@ const SomfyLightDevice = ({ device }: Props) => {
     refetch: getDeviceRefetch,
   } = useDevice(device.deviceURL);
 
-  const handlePowerStateChange = (checked: boolean): void => {
-    const newValue = checked ? 'on' : 'off';
+  const handlePowerStateChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newPowerState: string | null
+  ): void => {
     const payload: any = {
-      label: `Set power state ${newValue} - ${device.label}`,
+      label: `Set power state ${newPowerState} - ${device.label}`,
       actions: [
         {
           commands: [
             {
-              name: newValue,
+              name: newPowerState,
             },
           ],
           deviceURL: device.deviceURL,
         },
       ],
     };
-    sendCommand(payload, {
-      onSuccess: () => {
-        queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
-          // TODO: Handle when send command issue resolve https://github.com/Somfy-Developer/Somfy-TaHoma-Developer-Mode/issues/35
-          // const currentDevice: Device = currentDevices.find(
-          //   (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
-          // );
-          // if(currentDevice) {
-          //   currentDevice.states.
-          // }
-          return currentDevices;
-        });
-      },
-    });
+    sendCommand(payload);
   };
 
   return (
@@ -105,7 +99,30 @@ const SomfyLightDevice = ({ device }: Props) => {
       {/* Todo: A REVOIR COMPLETEMENT */}
       {device.available && device.enabled && (
         <Grid className="power-state-buttons" container>
-          <Grid item xs={6} className="button-container">
+          <ToggleButtonGroup
+            exclusive
+            size="large"
+            className="toggle-group"
+            aria-label="change light power state"
+            onChange={handlePowerStateChange}
+          >
+            <ToggleButton
+              className="somfy-light-button-on"
+              value="on"
+              aria-label="turn on"
+            >
+              ON
+            </ToggleButton>
+            <ToggleButton
+              className="somfy-light-button-off"
+              value="off"
+              aria-label="turn off"
+            >
+              OFF
+            </ToggleButton>
+          </ToggleButtonGroup>
+
+          {/* <Grid item xs={6} className="button-container">
             <Button
               size="medium"
               className="somfy-light-button"
@@ -123,7 +140,7 @@ const SomfyLightDevice = ({ device }: Props) => {
             >
               Turn OFF
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       )}
       {/* Description */}

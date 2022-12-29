@@ -39,17 +39,27 @@
 
   .power-state-buttons {
     margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .button-container {
-      text-align: center;
-
-      .somfy-light-button {
-        background-color: #f7f6ff;
+    .toggle-group {
+      .somfy-light-button-on,
+      .somfy-light-button-off {
         color: $color-primary;
-        border-radius: 20px;
-        padding: 1rem;
-        text-align: center;
-        text-transform: none;
+        background-color: #f7f6ff;
+      }
+
+      .somfy-light-button-on {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border: 1px solid $color-gray20;
+      }
+
+      .somfy-light-button-off {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border: 1px solid $color-gray20;
       }
     }
   }

@@ -1,7 +1,14 @@
-import React from 'react';
+import { Box, Container, Typography } from '@mui/material';
 
 const Heating = () => {
-  return <div>Heating</div>;
+  return (
+    <Container className="heating-container">
+      <Box className="center">
+        <Typography variant="h2">Not Implemented yet</Typography>
+      </Box>
+    </Container>
+  );
 };
 
 export default Heating;
+

@@ -35,6 +35,7 @@ $color-gray10: #f3f3f3;
 
 // Buttons
 .btn-default {
+  // TODO: remove !important
   background-color: $color-primary !important;
   padding: 12px 24px !important;
   gap: 24px;
