@@ -11,7 +11,7 @@ import './GoveeDevices.scss';
 const GoveeDevices = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevices();
-  const goveeDevices: [Device] = data?.devices;
+  const goveeDevices: Device[] | undefined = data;
 
   return (
     <Box>

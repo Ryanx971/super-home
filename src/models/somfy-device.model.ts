@@ -3,7 +3,7 @@ export interface DeviceRequestResponse {
   available: boolean;
   type: number;
   label: string;
-  states: [DeviceStateItem];
+  states: DeviceStateItem[];
   enabled: boolean;
   controllableName: string;
 }
@@ -11,7 +11,7 @@ export interface DeviceRequestResponse {
 export interface DeviceStateItem {
   type: number;
   name: string;
-  value: any;
+  value: string | number | boolean;
 }
 
 export interface Device {
@@ -19,12 +19,19 @@ export interface Device {
   available: boolean;
   type: number;
   label: string;
-  states: DeviceState;
   enabled: boolean;
   controllableName: string;
 }
 
-export interface DeviceState {
+export interface ShutterDeviceModel extends Device {
+  states: DeviceShutterState;
+}
+
+export interface LightDevice extends Device {
+  states: {};
+}
+
+export interface DeviceShutterState {
   status: string;
   isMoving: boolean;
   closeTarget: number;
@@ -50,5 +57,20 @@ export enum DeviceType {
   SHUTTER = 'io:RollerShutterGenericIOComponent',
   LIGHT = 'rts:LightRTSComponent',
   HEATING = 'ovp:HeatingTemperatureInterfaceTemperatureSensor',
+}
+
+export interface DeviceControlPayload {
+  label: string;
+  actions: Action[];
+}
+
+interface Action {
+  deviceURL: string;
+  commands: Command[];
+}
+
+interface Command {
+  name: string | null;
+  parameters?: string[] | number[] | boolean[];
 }
 

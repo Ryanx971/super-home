@@ -8,12 +8,16 @@ import {
 import { Box, Grid, IconButton, Slider, Typography } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
-import { CirclePicker } from 'react-color';
+import { CirclePicker, ColorResult } from 'react-color';
 import {
   useDeviceControlUpdate,
   useDeviceState,
 } from '../../hooks/govee.hooks';
-import { Device } from '../../models/govee-device.model';
+import {
+  Device,
+  DeviceControlPayload,
+  DeviceState,
+} from '../../models/govee-device.model';
 import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
 import ToggleSwitch from '../ToggleSwitch';
@@ -40,7 +44,7 @@ const GoveeLightDevice = ({ device }: Props) => {
 
   const handlePowerStateChange = (checked: boolean): void => {
     const newValue = checked ? 'on' : 'off';
-    const payload: any = {
+    const payload: DeviceControlPayload = {
       device: device.device,
       model: device.model,
       cmd: {
@@ -52,8 +56,10 @@ const GoveeLightDevice = ({ device }: Props) => {
       onSuccess: () => {
         queryClient.setQueryData(
           ['govee-device-state', device.device],
-          (currentDevice: any) => {
-            currentDevice.properties.powerState = newValue;
+          (currentDevice: DeviceState | undefined) => {
+            if (currentDevice?.properties) {
+              currentDevice.properties.powerState = newValue;
+            }
             return currentDevice;
           }
         );
@@ -65,7 +71,7 @@ const GoveeLightDevice = ({ device }: Props) => {
     event: Event | React.SyntheticEvent<Element, Event>,
     newValue: number | number[]
   ): void => {
-    const payload: any = {
+    const payload: DeviceControlPayload = {
       device: device.device,
       model: device.model,
       cmd: {
@@ -77,8 +83,10 @@ const GoveeLightDevice = ({ device }: Props) => {
       onSuccess: () => {
         queryClient.setQueryData(
           ['govee-device-state', device.device],
-          (currentDevice: any) => {
-            currentDevice.properties.brightness = newValue;
+          (currentDevice: DeviceState | undefined) => {
+            if (currentDevice?.properties) {
+              currentDevice.properties.brightness = newValue;
+            }
             return currentDevice;
           }
         );
@@ -86,8 +94,11 @@ const GoveeLightDevice = ({ device }: Props) => {
     });
   };
 
-  const handleColorChange = (color: any, event: any): void => {
-    const payload: any = {
+  const handleColorChange = (
+    color: ColorResult,
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const payload: DeviceControlPayload = {
       device: device.device,
       model: device.model,
       cmd: {
@@ -99,8 +110,10 @@ const GoveeLightDevice = ({ device }: Props) => {
       onSuccess: () => {
         queryClient.setQueryData(
           ['govee-device-state', device.device],
-          (currentDevice: any) => {
-            currentDevice.properties.color = color.rgb;
+          (currentDevice: DeviceState | undefined) => {
+            if (currentDevice?.properties) {
+              currentDevice.properties.color = color.rgb;
+            }
             return currentDevice;
           }
         );

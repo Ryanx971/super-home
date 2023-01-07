@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { SOMFY } from '../config/configuration';
 import {
+  Device,
+  DeviceControlPayload,
   DeviceRequestResponse,
   DeviceType,
 } from '../models/somfy-device.model';
@@ -16,7 +18,7 @@ const MANAGED_DEVICES: string[] = [
   DeviceType.HEATING,
 ];
 
-const getDevices = async () => {
+const getDevices = async (): Promise<Device[]> => {
   return axios
     .get(`${SOMFY.api.baseUrl}/setup/devices`, { headers: DEFAULT_HEADERS })
     .then(({ data }) => {
@@ -42,7 +44,7 @@ const getDevices = async () => {
     });
 };
 
-const getDevice = async (deviceURL: string) => {
+const getDevice = async (deviceURL: string): Promise<Device> => {
   return axios
     .get(
       `${SOMFY.api.baseUrl}/setup/devices/${encodeURIComponent(deviceURL)}`,
@@ -53,7 +55,7 @@ const getDevice = async (deviceURL: string) => {
     .then(({ data }) => deviceStateMapping(data));
 };
 
-const sendCommand = async (data: any) => {
+const sendCommand = async (data: DeviceControlPayload) => {
   return axios
     .post(`${SOMFY.api.baseUrl}/exec/apply`, data, {
       headers: DEFAULT_HEADERS,

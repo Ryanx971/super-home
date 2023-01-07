@@ -1,6 +1,6 @@
 // Get Devices
 export interface DevicesRequestResponse {
-  devices: [Device];
+  devices: Device[];
 }
 
 export interface Device {
@@ -8,12 +8,6 @@ export interface Device {
   device: string;
   deviceName: string;
   properties: DeviceProperties;
-  state?: {
-    online: boolean;
-    powerState: string;
-    brightness: number | number[];
-    color: any;
-  };
   controllable: boolean;
   retrievable: boolean;
   supportCmds: string[];
@@ -28,11 +22,26 @@ interface DeviceProperties {
   };
 }
 
+export interface DeviceState {
+  model: string;
+  device: string;
+  properties: {
+    online: boolean;
+    powerState: string;
+    brightness: number | number[];
+    color: {
+      b: number;
+      g: number;
+      r: number;
+    };
+  };
+}
+
 // Get state
 export interface DeviceStateRequestResponse {
   model: string;
   device: string;
-  properties: any;
+  properties: any[];
 }
 
 export enum DeviceStateProperties {
@@ -48,7 +57,13 @@ export interface DeviceControlPayload {
   model: string;
   cmd: {
     name: string;
-    value: any;
+    value: string | number | number[] | boolean | Color;
   };
+}
+
+interface Color {
+  r: number;
+  g: number;
+  b: number;
 }
 

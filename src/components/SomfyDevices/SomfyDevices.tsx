@@ -1,7 +1,12 @@
 import { Box, Button, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDevices } from '../../hooks/somfy.hooks';
-import { Device, DeviceType } from '../../models/somfy-device.model';
+import {
+  Device,
+  DeviceType,
+  LightDevice,
+  ShutterDeviceModel,
+} from '../../models/somfy-device.model';
 import AlertActions from '../AlertActions';
 import ShutterDevice from '../ShutterDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
@@ -35,10 +40,10 @@ const SomfyDevices = () => {
               return (
                 <Grid item xs={12} md={6} lg={4} key={index}>
                   {device.controllableName === DeviceType.LIGHT && (
-                    <SomfyLightDevice device={device} />
+                    <SomfyLightDevice device={device as LightDevice} />
                   )}
                   {device.controllableName === DeviceType.SHUTTER && (
-                    <ShutterDevice device={device} />
+                    <ShutterDevice device={device as ShutterDeviceModel} />
                   )}
                 </Grid>
               );

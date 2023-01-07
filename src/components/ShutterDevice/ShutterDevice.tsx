@@ -17,13 +17,16 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useSendCommand, useDevice } from '../../hooks/somfy.hooks';
-import { Device } from '../../models/somfy-device.model';
+import {
+  ShutterDeviceModel,
+  DeviceControlPayload,
+} from '../../models/somfy-device.model';
 import Spinner from '../Spinner';
 
 import './ShutterDevice.scss';
 
 interface Props {
-  device: Device;
+  device: ShutterDeviceModel;
 }
 
 const ShutterDevice = ({ device }: Props) => {
@@ -45,8 +48,8 @@ const ShutterDevice = ({ device }: Props) => {
   };
 
   const handleShutterLevelChange = (value: number | number[]): void => {
-    const newCloseLevel: number = 100 - Number(value); // TODO: is it clean ?
-    const payload: any = {
+    const newCloseLevel: number = 100 - Number(value);
+    const payload: DeviceControlPayload = {
       label: `Set shutter level ${value}% - ${device.label}`,
       actions: [
         {
@@ -62,26 +65,31 @@ const ShutterDevice = ({ device }: Props) => {
     };
     sendCommand(payload, {
       onSuccess: () => {
-        queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
-          const currentDevice: Device | undefined = currentDevices.find(
-            (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
-          );
-          if (currentDevice) {
-            currentDevice.states = {
-              ...currentDevice.states,
-              closeLevel: newCloseLevel,
-              closeTarget: newCloseLevel,
-              isOpen: newCloseLevel !== 100,
-            };
+        queryClient.setQueryData(
+          ['somfy-devices'],
+          (currentDevices: ShutterDeviceModel[] | undefined) => {
+            const currentDevice: ShutterDeviceModel | undefined =
+              currentDevices?.find(
+                (deviceItem: ShutterDeviceModel) =>
+                  deviceItem.deviceURL === device.deviceURL
+              );
+            if (currentDevice) {
+              currentDevice.states = {
+                ...currentDevice.states,
+                closeLevel: newCloseLevel,
+                closeTarget: newCloseLevel,
+                isOpen: newCloseLevel !== 100,
+              };
+            }
+            return currentDevices;
           }
-          return currentDevices;
-        });
+        );
       },
     });
   };
 
   const setFavoritePosition = (): void => {
-    const payload: any = {
+    const payload: DeviceControlPayload = {
       label: `Set shutter favorite position - ${device.label}`,
       actions: [
         {
@@ -96,22 +104,28 @@ const ShutterDevice = ({ device }: Props) => {
     };
     sendCommand(payload, {
       onSuccess: () => {
-        queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
-          const currentDevice: Device | undefined = currentDevices.find(
-            (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
-          );
-          if (currentDevice) {
-            // Close level became memorized position
-            const closeLevel: number = currentDevice?.states.memorized1Position;
-            currentDevice.states = {
-              ...currentDevice.states,
-              closeLevel,
-              closeTarget: closeLevel,
-              isOpen: closeLevel !== 100,
-            };
+        queryClient.setQueryData(
+          ['somfy-devices'],
+          (currentDevices: ShutterDeviceModel[] | undefined) => {
+            const currentDevice: ShutterDeviceModel | undefined =
+              currentDevices?.find(
+                (deviceItem: ShutterDeviceModel) =>
+                  deviceItem.deviceURL === device.deviceURL
+              );
+            if (currentDevice) {
+              // Close level became memorized position
+              const closeLevel: number =
+                currentDevice?.states.memorized1Position;
+              currentDevice.states = {
+                ...currentDevice.states,
+                closeLevel,
+                closeTarget: closeLevel,
+                isOpen: closeLevel !== 100,
+              };
+            }
+            return currentDevices;
           }
-          return currentDevices;
-        });
+        );
       },
     });
   };

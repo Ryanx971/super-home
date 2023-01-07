@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDevices, getDevice, sendCommand } from '../services/somfy.service';
 import { CONSTANTS } from '../config/configuration';
-import { Device } from '../models/somfy-device.model';
+import { Device, DeviceControlPayload } from '../models/somfy-device.model';
 
 const useDevices = () => {
   return useQuery(['somfy-devices'], () => getDevices(), {
@@ -17,21 +17,26 @@ const useDevice = (deviceURL: string) => {
     enabled: false,
     refetchOnWindowFocus: false,
     onSuccess: (device: Device) => {
-      queryClient.setQueryData(['somfy-devices'], (currentDevices: any) => {
-        const index: number = currentDevices.findIndex(
-          (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
-        );
-        if (index !== -1) {
-          currentDevices[index] = device;
+      queryClient.setQueryData(
+        ['somfy-devices'],
+        (currentDevices: Device[] | undefined) => {
+          if (currentDevices) {
+            const index: number = currentDevices.findIndex(
+              (deviceItem: Device) => deviceItem.deviceURL === device.deviceURL
+            );
+            if (index !== -1) {
+              currentDevices[index] = device;
+            }
+          }
+          return currentDevices;
         }
-        return currentDevices;
-      });
+      );
     },
   });
 };
 
 const useSendCommand = () => {
-  return useMutation((data) => {
+  return useMutation<any, any, DeviceControlPayload>((data) => {
     return sendCommand(data);
   });
 };

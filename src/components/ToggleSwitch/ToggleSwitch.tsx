@@ -24,12 +24,12 @@ const ToggleSwitch = ({
   small,
   disabled,
 }: Props) => {
-  function handleKeyPress(e: any) {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.keyCode !== 32) return;
 
     e.preventDefault();
     onChange(!checked);
-  }
+  };
 
   return (
     <div className={'toggle-switch' + (small ? ' small-switch' : '')}>

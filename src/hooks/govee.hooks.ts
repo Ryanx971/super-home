@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Device } from '../models/govee-device.model';
+import { Device, DeviceControlPayload } from '../models/govee-device.model';
 import {
   getDevices,
   getDeviceState,
@@ -24,7 +24,7 @@ const useDeviceState = (data: Device) => {
 };
 
 const useDeviceControlUpdate = () => {
-  return useMutation((data) => {
+  return useMutation<any, any, DeviceControlPayload>((data) => {
     return sendDeviceControl(data);
   });
 };

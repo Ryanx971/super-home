@@ -2,7 +2,7 @@ export const deviceStateResponse = {
   data: {
     device: '83:8D:A4:C1:38:CA:C9:CF',
     model: 'H6159',
-    properties: [
+    state: [
       {
         online: 'false',
       },
@@ -28,7 +28,7 @@ export const deviceStateResponse = {
 export const deviceStateMapped = {
   device: '83:8D:A4:C1:38:CA:C9:CF',
   model: 'H6159',
-  properties: {
+  state: {
     online: false,
     powerState: 'off',
     brightness: 85,

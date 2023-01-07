@@ -14,13 +14,16 @@ import {
   Typography,
 } from '@mui/material';
 import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
-import { Device } from '../../models/somfy-device.model';
+import {
+  DeviceControlPayload,
+  LightDevice,
+} from '../../models/somfy-device.model';
 import Spinner from '../Spinner';
 
 import './SomfyLightDevice.scss';
 
 interface Props {
-  device: Device;
+  device: LightDevice;
 }
 
 const SomfyLightDevice = ({ device }: Props) => {
@@ -39,7 +42,7 @@ const SomfyLightDevice = ({ device }: Props) => {
     event: React.MouseEvent<HTMLElement>,
     newPowerState: string | null
   ): void => {
-    const payload: any = {
+    const payload: DeviceControlPayload = {
       label: `Set power state ${newPowerState} - ${device.label}`,
       actions: [
         {
@@ -121,26 +124,6 @@ const SomfyLightDevice = ({ device }: Props) => {
               OFF
             </ToggleButton>
           </ToggleButtonGroup>
-
-          {/* <Grid item xs={6} className="button-container">
-            <Button
-              size="medium"
-              className="somfy-light-button"
-              onClick={() => handlePowerStateChange(true)}
-            >
-              Turn ON
-            </Button>
-          </Grid>
-
-          <Grid item xs={6} className="button-container">
-            <Button
-              size="medium"
-              className="somfy-light-button"
-              onClick={() => handlePowerStateChange(false)}
-            >
-              Turn OFF
-            </Button>
-          </Grid> */}
         </Grid>
       )}
       {/* Description */}

@@ -1,10 +1,17 @@
 import {
   DeviceRequestResponse,
   DeviceStateItem,
+  LightDevice,
+  ShutterDeviceModel,
 } from '../../models/somfy-device.model';
 
-const deviceStateMapping = (device: DeviceRequestResponse) => {
+const deviceStateMapping = (
+  device: DeviceRequestResponse
+): ShutterDeviceModel | LightDevice => {
   const { states } = device;
+  if (states && states.length === 0) {
+    return { ...device, states: {} };
+  }
   return {
     ...device,
     states: {
