@@ -1,20 +1,25 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Device, DeviceControlPayload } from '../models/govee-device.model';
+import {
+  Device,
+  DeviceControlPayload,
+  DeviceState,
+} from '../models/govee-device.model';
 import {
   getDevices,
   getDeviceState,
   sendDeviceControl,
 } from '../services/govee.service';
 import { CONSTANTS } from '../config/configuration';
+import { AxiosError, ResponseType } from 'axios';
 
 const useDevices = () => {
-  return useQuery(['govee-devices'], () => getDevices(), {
+  return useQuery<Device[], Error>(['govee-devices'], () => getDevices(), {
     staleTime: CONSTANTS.DEFAULT_STALETIME,
   });
 };
 
 const useDeviceState = (data: Device) => {
-  return useQuery(
+  return useQuery<DeviceState, Error>(
     ['govee-device-state', data.device],
     () => getDeviceState(data.device, data.model),
     {
@@ -24,7 +29,7 @@ const useDeviceState = (data: Device) => {
 };
 
 const useDeviceControlUpdate = () => {
-  return useMutation<any, any, DeviceControlPayload>((data) => {
+  return useMutation<ResponseType, AxiosError, DeviceControlPayload>((data) => {
     return sendDeviceControl(data);
   });
 };

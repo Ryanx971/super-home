@@ -1,4 +1,5 @@
 import {
+  Device,
   DeviceRequestResponse,
   DeviceStateItem,
   LightDevice,
@@ -7,7 +8,7 @@ import {
 
 const deviceStateMapping = (
   device: DeviceRequestResponse
-): ShutterDeviceModel | LightDevice => {
+): Device | ShutterDeviceModel | LightDevice => {
   const { states } = device;
   if (states && states.length === 0) {
     return { ...device, states: {} };

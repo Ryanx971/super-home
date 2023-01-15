@@ -617,9 +617,6 @@ export const devicesListMapped = [
     available: true,
     synced: true,
     type: 1,
-    states: {
-      isOpen: false,
-    },
     label: 'Lumière de la cuisine',
     definition: {
       states: [],
@@ -686,6 +683,7 @@ export const devicesListMapped = [
       ],
       type: 'ACTUATOR',
     },
+    states: {},
     attributes: [],
     enabled: true,
     controllableName: 'rts:LightRTSComponent',
@@ -697,9 +695,6 @@ export const devicesListMapped = [
     available: true,
     synced: true,
     type: 1,
-    states: {
-      isOpen: false,
-    },
     label: 'Lumière de la chambre',
     definition: {
       states: [],
@@ -766,6 +761,7 @@ export const devicesListMapped = [
       ],
       type: 'ACTUATOR',
     },
+    states: {},
     attributes: [],
     enabled: true,
     controllableName: 'rts:LightRTSComponent',
@@ -777,9 +773,6 @@ export const devicesListMapped = [
     available: true,
     synced: true,
     type: 1,
-    states: {
-      isOpen: false,
-    },
     label: 'Lumière du salon',
     definition: {
       states: [],
@@ -846,6 +839,7 @@ export const devicesListMapped = [
       ],
       type: 'ACTUATOR',
     },
+    states: {},
     attributes: [],
     enabled: true,
     controllableName: 'rts:LightRTSComponent',
