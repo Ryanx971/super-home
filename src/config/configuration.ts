@@ -1,6 +1,6 @@
 export const GOVEE = {
   ApiKeyName: 'Govee-API-Key',
-  ApiKeyValue: process.env.REACT_APP_GOVEE_TOKEN || 'token',
+  ApiKeyValue: import.meta.env.VITE_GOVEE_TOKEN || 'token',
   baseUrl: 'https://developer-api.govee.com/v1',
 };
 
@@ -9,7 +9,7 @@ export const SOMFY = {
   api: {
     baseUrl:
       'https://gateway-2006-4441-1365.local:8443/enduser-mobile-web/1/enduserAPI',
-    token: process.env.REACT_APP_SOMFY_TOKEN || 'token',
+    token: import.meta.env.VITE_SOMFY_TOKEN || 'token',
   },
 };
 
