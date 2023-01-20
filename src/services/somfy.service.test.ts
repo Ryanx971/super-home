@@ -5,18 +5,21 @@ import {
   devicesListResponse,
   devicesListMapped,
 } from '../resources/test/somfy/somfy-devices-list-data';
+import { describe, expect, test, afterEach, vi } from 'vitest';
 
-jest.mock('axios');
+vi.mock('axios');
+
+const mAxiosGet = vi.mocked(axios.get);
 
 describe('Somfy service', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   test('getDevices - should apply mapping', async () => {
-    const devicesMappingSpy = jest.spyOn(mapping, 'deviceStateMapping');
+    const devicesMappingSpy = vi.spyOn(mapping, 'deviceStateMapping');
 
-    (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue({
+    mAxiosGet.mockResolvedValue({
       data: devicesListResponse,
     });
     const result = await getDevices();

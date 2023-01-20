@@ -5,18 +5,19 @@ import {
   deviceStateResponse,
   deviceStateMapped,
 } from '../resources/test/govee/govee-device-state-data';
-import { mocked } from 'ts-jest/utils';
+import { describe, expect, test, afterEach, vi } from 'vitest';
 
-jest.mock('axios');
-const mAxiosGet = mocked(axios.get);
+vi.mock('axios');
+
+const mAxiosGet = vi.mocked(axios.get);
 
 describe('Govee service', () => {
   afterEach(() => {
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   test('getDeviceState - should apply mapping', async () => {
-    const deviceMappingSpy = jest.spyOn(mapping, 'deviceStateMapping');
+    const deviceMappingSpy = vi.spyOn(mapping, 'deviceStateMapping');
 
     mAxiosGet.mockResolvedValue({
       data: deviceStateResponse,
