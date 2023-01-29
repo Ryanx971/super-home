@@ -4,6 +4,7 @@ stages:
   - security
   - test
   - build
+  - deploy
 
 before_script:
   - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
@@ -31,8 +32,19 @@ unit-test:
 
 build:
   stage: build
+  variables:
+    PUBLIC_URL: https://ryan.baloji.gitlab.io/super-home/
   script:
     - pnpm run build
+  artifacts:
+    paths:
+      - build/
+
+deploy:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none # Do not clone git repository
+  script:
     - cp -a dist/. public/
   artifacts:
     paths:
