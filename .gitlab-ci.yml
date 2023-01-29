@@ -3,13 +3,13 @@ image: node:16
 stages:
   - security
   - test
-  - build
-  - deploy
+  - pages
 
 before_script:
   - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
   - pnpm config set store-dir .pnpm-store
   - pnpm install
+
 cache:
   key: '$CI_COMMIT_REF_SLUG'
   paths:
@@ -31,7 +31,7 @@ unit-test:
       - .pnpm-store
 
 build:
-  stage: build
+  stage: pages
   variables:
     PUBLIC_URL: https://ryan.baloji.gitlab.io/super-home/
   script:
@@ -41,7 +41,7 @@ build:
       - build/
 
 deploy:
-  stage: deploy
+  stage: pages
   variables:
     GIT_STRATEGY: none # Do not clone git repository
   script:
