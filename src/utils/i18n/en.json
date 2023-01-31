@@ -1,0 +1,24 @@
+{
+  "common": {
+    "error": "Error",
+    "name": {
+      "initials": "RB"
+    }
+  },
+  "homePage": {
+    "title": "All devices",
+    "govee": {
+      "title": "Govee devices"
+    },
+    "somfy": {
+      "title": "Somfy devices"
+    },
+    "reloadDevices": "Reload devices"
+  },
+  "shutter": {
+    "open": "open",
+    "close": "close",
+    "openAt": "open at {{level}}%"
+  }
+}
+

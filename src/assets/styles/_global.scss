@@ -1,0 +1,57 @@
+// Color
+$color-primary: #5e44ff;
+$color-red: red;
+$color-yellow: #f2c94c;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-gray: #c4c4c4;
+$color-gray40: #d0d0d0;
+$color-gray30: #dcdcdc;
+$color-gray20: #e7e7e7;
+$color-gray10: #f3f3f3;
+
+// Colors
+.color-primary {
+  color: $color-primary;
+}
+
+.color-gray {
+  color: $color-gray;
+}
+
+.color-error {
+  color: $color-red;
+}
+
+.color-yellow {
+  color: $color-yellow;
+}
+
+// Backgrounds
+.bg-disabled {
+  background-color: $color-gray40;
+  opacity: 0.4;
+}
+
+// Buttons
+.btn-default {
+  // TODO: remove !important
+  background-color: $color-primary !important;
+  padding: 12px 24px !important;
+  gap: 24px;
+  border-radius: 14px !important;
+}
+
+// Utils
+.center {
+  text-align: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mr-05 {
+  margin-right: 0.5rem;
+}
+
