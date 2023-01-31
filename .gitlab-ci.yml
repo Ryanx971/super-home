@@ -32,11 +32,8 @@ unit-test:
 
 pages:
   stage: pages
-  variables:
-    # PUBLIC_URL: https://ryan.baloji.gitlab.io/super-home/
-    # GIT_STRATEGY: none # Do not clone git repository
   script:
-    - pnpm run build
+    - pnpm run gitlab:build
     - cp -a dist/. public/
   artifacts:
     paths:
