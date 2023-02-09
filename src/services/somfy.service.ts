@@ -5,7 +5,7 @@ import {
   DeviceControlPayload,
   DeviceRequestResponse,
   DeviceType,
-} from '../models/somfy-device.model';
+} from '../interfaces/somfy.interface';
 import { deviceStateMapping } from '../utils/mappings/somfy.mapping';
 
 const DEFAULT_HEADERS = {

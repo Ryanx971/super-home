@@ -1,7 +1,7 @@
 import {
   DeviceState,
   DeviceStateRequestResponse,
-} from '../../models/govee-device.model';
+} from '../../interfaces/govee.interface';
 
 const deviceStateMapping = (
   deviceState: DeviceStateRequestResponse

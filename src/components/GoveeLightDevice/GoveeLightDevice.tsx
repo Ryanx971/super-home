@@ -17,7 +17,7 @@ import {
   Device,
   DeviceControlPayload,
   DeviceState,
-} from '../../models/govee-device.model';
+} from '../../interfaces/govee.interface';
 import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
 import ToggleSwitch from '../ToggleSwitch';

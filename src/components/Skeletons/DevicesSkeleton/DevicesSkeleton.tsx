@@ -1,13 +1,13 @@
-import React from 'react';
 import { Box, Grid, Skeleton } from '@mui/material';
+
 import './DevicesSkeleton.scss';
 
-interface DeviceSkeletonProps {
+interface Props {
   repeat: number;
   height: number;
 }
 
-const DevicesSkeleton = ({ repeat, height }: DeviceSkeletonProps) => {
+const DevicesSkeleton = ({ repeat, height }: Props) => {
   return (
     <>
       {Array.from(Array(repeat), (item: number, index: number) => {

@@ -1,7 +1,7 @@
 import { Box, Button, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDevices } from '../../hooks/govee.hooks';
-import { Device } from '../../models/govee-device.model';
+import { Device } from '../../interfaces/govee.interface';
 import AlertActions from '../AlertActions';
 import GoveeLightDevice from '../GoveeLightDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
@@ -16,10 +16,10 @@ const GoveeDevices = () => {
   return (
     <Box>
       <Box className="govee-devices-list">
-        {isError && error instanceof Error && (
+        {isError && error && (
           <AlertActions
             severity="error"
-            message={error.message}
+            message={t('homePage.govee.error')}
             children={
               <Button color="inherit" size="small" onClick={() => refetch()}>
                 {t('homePage.reloadDevices')}

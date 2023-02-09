@@ -17,7 +17,7 @@ import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
 import {
   DeviceControlPayload,
   LightDevice,
-} from '../../models/somfy-device.model';
+} from '../../interfaces/somfy.interface';
 import Spinner from '../Spinner';
 
 import './SomfyLightDevice.scss';

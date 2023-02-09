@@ -16,11 +16,11 @@ import {
 } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useSendCommand, useDevice } from '../../hooks/somfy.hooks';
+import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
 import {
-  ShutterDeviceModel,
   DeviceControlPayload,
-} from '../../models/somfy-device.model';
+  ShutterDeviceModel,
+} from '../../interfaces/somfy.interface';
 import Spinner from '../Spinner';
 
 import './ShutterDevice.scss';

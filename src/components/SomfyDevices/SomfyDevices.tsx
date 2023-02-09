@@ -6,7 +6,7 @@ import {
   DeviceType,
   LightDevice,
   ShutterDeviceModel,
-} from '../../models/somfy-device.model';
+} from '../../interfaces/somfy.interface';
 import AlertActions from '../AlertActions';
 import ShutterDevice from '../ShutterDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
@@ -25,7 +25,7 @@ const SomfyDevices = () => {
         {isError && error instanceof Error && (
           <AlertActions
             severity="error"
-            message={error.message}
+            message={t('homePage.somfy.error')}
             children={
               <Button color="inherit" size="small" onClick={() => refetch()}>
                 {t('homePage.reloadDevices')}
