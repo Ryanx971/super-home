@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
 
-// Containers
 import Home from '../Home';
 import Heating from '../Heating';
 
