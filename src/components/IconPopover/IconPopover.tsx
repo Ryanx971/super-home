@@ -1,6 +1,6 @@
-import React from 'react';
-import { IconButton, Popover, Box } from '@mui/material';
 import { ColorLensOutlined } from '@mui/icons-material';
+import { Box, IconButton, Popover } from '@mui/material';
+import React from 'react';
 
 import './IconPopover.scss';
 
@@ -16,7 +16,6 @@ interface Props {
 }
 
 const IconPopover = ({
-  iconName,
   children,
   classes,
   disabled,
@@ -25,8 +24,9 @@ const IconPopover = ({
   transformOriginVertical,
   transformOriginHorizontal,
 }: Props) => {
-  const [anchorEl, setAnchorEl] =
-    React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null
+  );
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

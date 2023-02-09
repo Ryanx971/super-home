@@ -4,7 +4,7 @@ import {
   Device,
   DeviceControlPayload,
   DeviceState,
-} from '../models/govee-device.model';
+} from '../interfaces/govee.interface';
 import { deviceStateMapping } from '../utils/mappings/govee.mapping';
 
 const DEFAULT_HEADERS = {

@@ -1,11 +1,12 @@
-import React from 'react';
+import { Box } from '@mui/material';
+
 import './Spinner.scss';
 
 const Spinner = () => {
   return (
-    <div className="spinner-container">
-      <div className="spinner"></div>
-    </div>
+    <Box className="spinner-container">
+      <Box className="spinner"></Box>
+    </Box>
   );
 };
 

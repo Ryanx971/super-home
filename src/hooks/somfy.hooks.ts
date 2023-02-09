@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDevices, getDevice, sendCommand } from '../services/somfy.service';
 import { CONSTANTS } from '../config/configuration';
-import { Device, DeviceControlPayload } from '../models/somfy-device.model';
+import { Device, DeviceControlPayload } from '../interfaces/somfy.interface';
 import { AxiosError } from 'axios';
 
 const useDevices = () => {

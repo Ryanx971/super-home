@@ -4,7 +4,7 @@ import { getDevices } from './somfy.service';
 import {
   devicesListResponse,
   devicesListMapped,
-} from '../resources/test/somfy/somfy-devices-list-data';
+} from '../resources/test/somfy/devices-list';
 import { describe, expect, test, afterEach, vi } from 'vitest';
 
 vi.mock('axios');

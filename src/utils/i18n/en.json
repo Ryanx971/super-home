@@ -8,10 +8,12 @@
   "homePage": {
     "title": "All devices",
     "govee": {
-      "title": "Govee devices"
+      "title": "Govee devices",
+      "error": "An error occurred while retrieving Govee information"
     },
     "somfy": {
-      "title": "Somfy devices"
+      "title": "Somfy devices",
+      "error": "An error occurred while retrieving Somfy information"
     },
     "reloadDevices": "Reload devices"
   },

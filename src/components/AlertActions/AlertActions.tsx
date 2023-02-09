@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AlertColor, AlertTitle, Box } from '@mui/material';
+import { Alert, AlertColor, AlertTitle, Box, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 import './AlertActions.scss';
@@ -17,7 +17,9 @@ const AlertActions = ({ severity, message, children }: Props) => {
     <Box className="alert-actions">
       <Alert severity={severity}>
         <AlertTitle>{t('common.error')}</AlertTitle>
-        <p>{message}</p>
+        <Typography variant="body1" component="p">
+          {message}
+        </Typography>
         {children}
       </Alert>
     </Box>

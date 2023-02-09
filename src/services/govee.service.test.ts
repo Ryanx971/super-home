@@ -4,7 +4,7 @@ import { getDeviceState } from './govee.service';
 import {
   deviceStateResponse,
   deviceStateMapped,
-} from '../resources/test/govee/govee-device-state-data';
+} from '../resources/test/govee/device-state';
 import { describe, expect, test, afterEach, vi } from 'vitest';
 
 vi.mock('axios');

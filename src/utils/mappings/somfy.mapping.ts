@@ -4,7 +4,7 @@ import {
   DeviceStateItem,
   LightDevice,
   ShutterDeviceModel,
-} from '../../models/somfy-device.model';
+} from '../../interfaces/somfy.interface';
 
 const deviceStateMapping = (
   device: DeviceRequestResponse
