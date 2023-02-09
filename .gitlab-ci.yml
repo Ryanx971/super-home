@@ -5,24 +5,11 @@ stages:
   - test
   - pages
 
-before_script:
-  - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
-  - pnpm config set store-dir .pnpm-store
-  - pnpm install
-
-cache:
-  key: '$CI_COMMIT_REF_SLUG'
-  paths:
-    - .pnpm-store
-
-audit:
-  stage: security
-  script: pnpm audit --audit-level=critical
-
-unit-test:
-  stage: test
-  script:
-    - pnpm run test:ci
+.install:
+  before_script:
+    - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@7
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
   cache:
     key:
       files:
@@ -30,8 +17,20 @@ unit-test:
     paths:
       - .pnpm-store
 
+audit:
+  stage: security
+  extends: .install
+  script: pnpm audit --audit-level=critical
+
+unit-test:
+  stage: test
+  extends: .install
+  script:
+    - pnpm run test:ci
+
 pages:
   stage: pages
+  extends: .install
   script:
     - pnpm run gitlab:build
     - cp -a dist/. public/
