@@ -2,10 +2,7 @@ import { ColorLensOutlined } from '@mui/icons-material';
 import { Box, IconButton, Popover } from '@mui/material';
 import React from 'react';
 
-import './IconPopover.scss';
-
 interface Props {
-  iconName: string;
   children: React.ReactNode;
   classes?: string;
   disabled?: boolean;
@@ -17,7 +14,6 @@ interface Props {
 
 const IconPopover = ({
   children,
-  classes,
   disabled,
   anchorOriginVertical,
   anchorOriginHorizontal,
@@ -38,15 +34,16 @@ const IconPopover = ({
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-  const popOverClasses = `popover-container ${classes}`;
 
   return (
     <Box>
       <IconButton
         aria-describedby={id}
         aria-label="color picker"
+        sx={{ padding: '0', marginRight: 0.5 }}
         component="button"
         size="small"
+        color="primary"
         className="color-picker-button"
         disabled={disabled}
         onClick={handleClick}
@@ -70,7 +67,14 @@ const IconPopover = ({
           horizontal: transformOriginHorizontal,
         }}
       >
-        <Box className={popOverClasses}>{children}</Box>
+        <Box
+          sx={{
+            padding: 2,
+            boxShadow: 'box-shadow: 0px 1px 5px rgba(179, 167, 255, 0.15);',
+          }}
+        >
+          {children}
+        </Box>
       </Popover>
     </Box>
   );

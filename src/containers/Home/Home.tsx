@@ -1,19 +1,20 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import GoveeDevices from '../../components/GoveeDevices';
 import SomfyDevices from '../../components/SomfyDevices';
-
-import './Home.scss';
+import theme from '../../utils/theme';
 
 const Home = () => {
   return (
-    <Container className="home-container">
-      <section id="govee-devices">
-        <GoveeDevices />
-      </section>
-      <section id="somfy-devices">
-        <SomfyDevices />
-      </section>
-    </Container>
+    <Box sx={{ backgroundColor: theme.palette.lightGrey }}>
+      <Container>
+        <Box sx={{ marginBottom: 6 }}>
+          <GoveeDevices />
+        </Box>
+        <Box>
+          <SomfyDevices />
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

@@ -5,9 +5,16 @@ import {
   WifiOffOutlined,
   WifiOutlined,
 } from '@mui/icons-material';
-import { Box, Grid, IconButton, Slider, Typography } from '@mui/material';
+import {
+  Box,
+  Grid,
+  IconButton,
+  Slider,
+  Switch,
+  Typography,
+} from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { CirclePicker, ColorResult } from 'react-color';
 import {
   useDeviceControlUpdate,
@@ -18,11 +25,9 @@ import {
   DeviceControlPayload,
   DeviceState,
 } from '../../interfaces/govee.interface';
+import theme from '../../utils/theme';
 import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
-import ToggleSwitch from '../ToggleSwitch';
-
-import './GoveeLightDevice.scss';
 
 interface Props {
   device: Device;
@@ -42,7 +47,10 @@ const GoveeLightDevice = ({ device }: Props) => {
   } = useDeviceControlUpdate();
   const queryClient = useQueryClient();
 
-  const handlePowerStateChange = (checked: boolean): void => {
+  const handlePowerStateChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ): void => {
     const newValue = checked ? 'on' : 'off';
     const payload: DeviceControlPayload = {
       device: device.device,
@@ -123,24 +131,52 @@ const GoveeLightDevice = ({ device }: Props) => {
 
   return (
     <Box
-      className={
-        'device-card ' +
-        (isDeviceFetching || isDeviceControlUpdateLoading ? 'bg-disabled ' : '')
-      }
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        padding: 4,
+        position: 'relative',
+        boxShadow: '0px 1px 5px rgba(179, 167, 255, 0.15)',
+        borderRadius: '25px',
+        backgroundColor:
+          isDeviceFetching || isDeviceControlUpdateLoading
+            ? theme.palette.grey40
+            : theme.palette.white,
+        opacity: isDeviceFetching || isDeviceControlUpdateLoading ? 0.5 : 1,
+      }}
     >
       {(isDeviceRefetching || isDeviceControlUpdateLoading) && <Spinner />}
 
-      <Grid container className="header">
-        <Grid item xs={3} className="left-content">
-          <WbIncandescentOutlined className="color-primary" fontSize="large" />
+      <Grid container>
+        <Grid
+          item
+          xs={3}
+          sx={{
+            backgroundColor: theme.palette.primary.light,
+            borderRadius: '20px',
+            padding: 2,
+            textAlign: 'center',
+          }}
+        >
+          <WbIncandescentOutlined color="primary" fontSize="large" />
         </Grid>
         <Grid item xs={2} />
-        <Grid item xs={7} className="right-content">
-          <Box className="icons-list">
+        <Grid item xs={7} sx={{ textAlign: 'end' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+          >
             {/* Error */}
             {isDeviceError && (
-              <Box className="mr-05">
-                <ReportProblem fontSize="small" className="color-error" />
+              <Box sx={{ marginRight: 0.5 }}>
+                <ReportProblem
+                  fontSize="small"
+                  sx={{ color: theme.palette.red }}
+                />
               </Box>
             )}
 
@@ -151,14 +187,14 @@ const GoveeLightDevice = ({ device }: Props) => {
               component="button"
               size="small"
               className="refresh-button mr-05"
+              sx={{ padding: 'O', marginRight: 0.5 }}
               onClick={() => refreshDevice({ throwOnError: true })}
             >
-              <RefreshOutlined fontSize="small" className="color-primary" />
+              <RefreshOutlined fontSize="small" color="primary" />
             </IconButton>
 
             {/* Color picker  */}
             <IconPopover
-              iconName="color_lens_outlined"
               classes={isDeviceControlUpdateLoading ? 'bg-disabled' : ''}
               children={<CirclePicker onChangeComplete={handleColorChange} />}
               disabled={!deviceState?.properties?.online}
@@ -170,17 +206,23 @@ const GoveeLightDevice = ({ device }: Props) => {
 
             {/* Online icon  */}
             {deviceState?.properties?.online ? (
-              <WifiOutlined fontSize="small" className="color-primary mr-05" />
+              <WifiOutlined
+                fontSize="small"
+                color="primary"
+                sx={{ marginRight: 0.5 }}
+              />
             ) : (
-              <WifiOffOutlined fontSize="small" className="color-gray mr-05" />
+              <WifiOffOutlined
+                fontSize="small"
+                sx={{ color: theme.palette.primaryGrey, marginRight: 0.5 }}
+              />
             )}
 
-            <ToggleSwitch
-              id={device.deviceName}
+            <Switch
               checked={deviceState?.properties?.powerState === 'on'}
-              disabled={!deviceState?.properties?.online}
               onChange={handlePowerStateChange}
-              small={true}
+              disabled={!deviceState?.properties?.online}
+              inputProps={{ 'aria-label': 'controlled' }}
             />
           </Box>
         </Grid>
@@ -190,13 +232,13 @@ const GoveeLightDevice = ({ device }: Props) => {
         size="small"
         key={`slider-${deviceState?.properties?.brightness}`}
         defaultValue={deviceState?.properties?.brightness}
+        sx={{ margin: '1rem 0' }}
         disabled={
           !deviceState?.properties?.online ||
           deviceState?.properties.powerState === 'off'
         }
         aria-label="brightness slider"
         valueLabelDisplay="auto"
-        className="slider"
         onChangeCommitted={handleBrightnessChange}
       />
       {/* Description */}

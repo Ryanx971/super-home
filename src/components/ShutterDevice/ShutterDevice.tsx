@@ -21,9 +21,8 @@ import {
   DeviceControlPayload,
   ShutterDeviceModel,
 } from '../../interfaces/somfy.interface';
+import theme from '../../utils/theme';
 import Spinner from '../Spinner';
-
-import './ShutterDevice.scss';
 
 interface Props {
   device: ShutterDeviceModel;
@@ -132,21 +131,50 @@ const ShutterDevice = ({ device }: Props) => {
 
   return (
     <Box
-      className={
-        'shutter ' +
-        (isCommandLoading || getDeviceFetching ? 'bg-disabled' : '')
-      }
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        padding: 4,
+        position: 'relative',
+        borderRadius: '25px',
+        backgroundColor:
+          isCommandLoading || getDeviceFetching
+            ? theme.palette.grey40
+            : theme.palette.white,
+        opacity: isCommandLoading || getDeviceFetching ? 0.5 : 1,
+        boxShadow: '0px 1px 5px rgba(179, 167, 255, 0.15);',
+      }}
     >
       {(isCommandLoading || getDeviceFetching) && <Spinner />}
       <Grid container className="header">
-        <Grid item xs={4} className="icon">
-          <Blinds className="color-primary" fontSize="large" />
+        <Grid
+          item
+          xs={4}
+          className="icon"
+          sx={{
+            backgroundColor: theme.palette.primary.light,
+            borderRadius: '20px',
+            padding: 2,
+            textAlign: 'center',
+          }}
+        >
+          <Blinds color="primary" fontSize="large" />
         </Grid>
         <Grid item xs={8}>
-          <Box className="icons-list">
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+          >
             {/* Error */}
             {(isCommandError || getDeviceIsError) && (
-              <ReportProblem fontSize="small" className="color-error mr-05" />
+              <ReportProblem
+                fontSize="small"
+                sx={{ color: theme.palette.red, marginRight: 0.5 }}
+              />
             )}
 
             {/* Refresh button */}
@@ -154,11 +182,11 @@ const ShutterDevice = ({ device }: Props) => {
               color="primary"
               aria-label="refresh device data"
               component="button"
-              className="refresh-button mr-05"
+              sx={{ padding: '0', marginRight: 0.5 }}
               size="small"
               onClick={() => getDeviceRefetch({ throwOnError: true })}
             >
-              <RefreshOutlined fontSize="small" className="color-primary" />
+              <RefreshOutlined fontSize="small" color="primary" />
             </IconButton>
 
             {/* Favorite position button */}
@@ -166,34 +194,47 @@ const ShutterDevice = ({ device }: Props) => {
               color="primary"
               aria-label="favorite position button"
               component="button"
-              className="favorite-position-button mr-05"
+              sx={{ padding: '0', marginRight: 0.5 }}
               size="small"
               onClick={() => setFavoritePosition()}
             >
-              <Favorite fontSize="small" className="color-primary" />
+              <Favorite fontSize="small" color="primary" />
             </IconButton>
 
             {/* Online button  */}
             {device.available && device.enabled ? (
-              <WifiOutlined fontSize="small" className="color-primary mr-05" />
+              <WifiOutlined
+                fontSize="small"
+                color="primary"
+                sx={{ marginRight: 0.5 }}
+              />
             ) : (
-              <WifiOffOutlined fontSize="small" className="color-gray mr-05" />
+              <WifiOffOutlined
+                fontSize="small"
+                sx={{ color: theme.palette.primaryGrey, marginRight: 0.5 }}
+              />
             )}
           </Box>
         </Grid>
 
         {/* Informations */}
-        <Box className="infos center w-100">
+        <Box sx={{ textAlign: 'center', width: '100%', margin: '1rem 0' }}>
           <Typography variant="h6">{device.label}</Typography>
           <Typography variant="caption">
             {t('shutter.openAt', { level: openLevel() })}
           </Typography>
         </Box>
 
-        <Box className="slider-container">
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
           <Button
             variant="contained"
-            className="btn-default"
             onClick={() => handleShutterLevelChange(100)}
           >
             {t('shutter.open')}
@@ -207,7 +248,8 @@ const ShutterDevice = ({ device }: Props) => {
             disabled={!device.available && !device.enabled}
             aria-label="shutter level slider"
             valueLabelDisplay="auto"
-            className="slider"
+            color="primary"
+            sx={{ height: '15rem', margin: '2rem 0' }}
             orientation="vertical"
             onChangeCommitted={(event, newValue) =>
               handleShutterLevelChange(newValue)
@@ -215,7 +257,6 @@ const ShutterDevice = ({ device }: Props) => {
           />
           <Button
             variant="contained"
-            className="btn-default"
             onClick={() => handleShutterLevelChange(0)}
           >
             {t('shutter.close')}
