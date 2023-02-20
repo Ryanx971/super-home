@@ -12,8 +12,6 @@ import ShutterDevice from '../ShutterDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
 import SomfyLightDevice from '../SomfyLightDevice';
 
-import './SomfyDevices.scss';
-
 const SomfyDevices = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevices();
@@ -21,7 +19,7 @@ const SomfyDevices = () => {
   const somfyDevices: Device[] | undefined = data;
   return (
     <Box>
-      <Box className="somfy-devices-list">
+      <Box sx={{ backgroundColor: 'inherit', borderRadius: '25px' }}>
         {isError && error instanceof Error && (
           <AlertActions
             severity="error"

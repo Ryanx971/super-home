@@ -2,8 +2,8 @@ import { Box, Container, Typography } from '@mui/material';
 
 const Heating = () => {
   return (
-    <Container className="heating-container">
-      <Box className="center">
+    <Container>
+      <Box sx={{ textAlign: 'center' }}>
         <Typography variant="h2">Not Implemented yet</Typography>
       </Box>
     </Container>

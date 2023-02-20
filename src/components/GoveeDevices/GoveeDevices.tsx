@@ -6,8 +6,6 @@ import AlertActions from '../AlertActions';
 import GoveeLightDevice from '../GoveeLightDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
 
-import './GoveeDevices.scss';
-
 const GoveeDevices = () => {
   const { t } = useTranslation();
   const { data, error, isFetching, isError, refetch } = useDevices();
@@ -15,7 +13,7 @@ const GoveeDevices = () => {
 
   return (
     <Box>
-      <Box className="govee-devices-list">
+      <Box sx={{ borderRadius: '25px' }}>
         {isError && error && (
           <AlertActions
             severity="error"

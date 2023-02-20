@@ -2,6 +2,7 @@ image: node:16
 
 stages:
   - security
+  - build
   - test
   - pages
 
@@ -22,21 +23,15 @@ audit:
   extends: .install
   script: pnpm audit --audit-level=critical
 
+build:
+  stage: build
+  extends: .install
+  script:
+    - pnpm run build
+
 unit-test:
   stage: test
   extends: .install
   script:
     - pnpm run test:ci
-
-pages:
-  stage: pages
-  extends: .install
-  script:
-    - pnpm run gitlab:build
-    - cp -a dist/. public/
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
 

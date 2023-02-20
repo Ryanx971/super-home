@@ -1,6 +1,5 @@
 import { Box, Grid, Skeleton } from '@mui/material';
-
-import './DevicesSkeleton.scss';
+import theme from '../../../utils/theme';
 
 interface Props {
   repeat: number;
@@ -13,7 +12,13 @@ const DevicesSkeleton = ({ repeat, height }: Props) => {
       {Array.from(Array(repeat), (item: number, index: number) => {
         return (
           <Grid item xs={4} key={index} height={height}>
-            <Box className="device-skeleton">
+            <Box
+              sx={{
+                backgroundColor: theme.palette.grey30,
+                borderRadius: '25px',
+                padding: '25px',
+              }}
+            >
               <Grid container>
                 <Grid item xs={3}>
                   <Skeleton
@@ -24,11 +29,15 @@ const DevicesSkeleton = ({ repeat, height }: Props) => {
                   />
                 </Grid>
                 <Grid item xs={2}></Grid>
-                <Grid item xs={7} className="right-content">
+                <Grid
+                  item
+                  xs={7}
+                  sx={{ display: 'flex', justifyContent: 'flex-end' }}
+                >
                   <Skeleton
                     variant="circular"
                     animation="wave"
-                    className="mr"
+                    sx={{ marginRight: '0.5rem' }}
                     width={20}
                     height={20}
                   />
@@ -36,13 +45,14 @@ const DevicesSkeleton = ({ repeat, height }: Props) => {
                     variant="circular"
                     animation="wave"
                     className="mr"
+                    sx={{ marginRight: '0.5rem' }}
                     width={20}
                     height={20}
                   />
                   <Skeleton
                     variant="circular"
                     animation="wave"
-                    className="mr"
+                    sx={{ marginRight: '0.5rem' }}
                     width={20}
                     height={20}
                   />
@@ -55,7 +65,7 @@ const DevicesSkeleton = ({ repeat, height }: Props) => {
                 </Grid>
               </Grid>
               <Skeleton
-                className="slider"
+                sx={{ margin: '1rem 0' }}
                 variant="text"
                 width="100%"
                 animation="wave"
