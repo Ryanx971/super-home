@@ -1,13 +1,15 @@
 import {
-  Device,
-  DeviceRequestResponse,
-  DeviceStateItem,
+  GetSomfyDeviceResponse,
+  GetSomfyDeviceState,
+} from '../../interfaces/rest/response.interface';
+import {
   LightDevice,
   ShutterDeviceModel,
-} from '../../interfaces/somfy.interface';
+} from '../../interfaces/somfy/device-state.interface';
+import { Device } from '../../interfaces/somfy/device.interface';
 
 const deviceStateMapping = (
-  device: DeviceRequestResponse
+  device: GetSomfyDeviceResponse
 ): Device | ShutterDeviceModel | LightDevice => {
   const { states } = device;
   if (states && states.length === 0) {
@@ -17,24 +19,24 @@ const deviceStateMapping = (
     ...device,
     states: {
       status: states.find(
-        (state: DeviceStateItem) => state.name === 'core:StatusState'
+        (state: GetSomfyDeviceState) => state.name === 'core:StatusState'
       )?.value,
       isMoving: states.find(
-        (state: DeviceStateItem) => state.name === 'core:MovingState'
+        (state: GetSomfyDeviceState) => state.name === 'core:MovingState'
       )?.value,
       closeTarget: states.find(
-        (state: DeviceStateItem) => state.name === 'core:TargetClosureState'
+        (state: GetSomfyDeviceState) => state.name === 'core:TargetClosureState'
       )?.value,
       memorized1Position: states.find(
-        (state: DeviceStateItem) =>
+        (state: GetSomfyDeviceState) =>
           state.name === 'core:Memorized1PositionState'
       )?.value,
       closeLevel: states.find(
-        (state: DeviceStateItem) => state.name === 'core:ClosureState'
+        (state: GetSomfyDeviceState) => state.name === 'core:ClosureState'
       )?.value,
       isOpen:
         states.find(
-          (state: DeviceStateItem) => state.name === 'core:OpenClosedState'
+          (state: GetSomfyDeviceState) => state.name === 'core:OpenClosedState'
         )?.value === 'open' || false,
     },
   };

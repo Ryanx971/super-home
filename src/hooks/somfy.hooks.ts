@@ -1,18 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getDevices, getDevice, sendCommand } from '../services/somfy.service';
 import { CONSTANTS } from '../config/configuration';
-import { Device, DeviceControlPayload } from '../interfaces/somfy.interface';
-import { AxiosError } from 'axios';
+import { Axios, AxiosError } from 'axios';
+import { Device } from '../interfaces/somfy/device.interface';
+import { DeviceControlPayload } from '../interfaces/somfy/device-control.interface';
 
 const useDevices = () => {
-  return useQuery<Device[], Error>(['somfy-devices'], () => getDevices(), {
+  return useQuery<Device[], AxiosError>(['somfy-devices'], () => getDevices(), {
     staleTime: CONSTANTS.DEFAULT_STALETIME,
   });
 };
 
 const useDevice = (deviceURL: string) => {
   const queryClient = useQueryClient();
-  return useQuery<Device, Error>(
+  return useQuery<Device, AxiosError>(
     ['somfy-device', deviceURL],
     () => getDevice(deviceURL),
     {

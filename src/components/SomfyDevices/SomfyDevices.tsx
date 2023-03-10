@@ -2,11 +2,10 @@ import { Box, Button, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDevices } from '../../hooks/somfy.hooks';
 import {
-  Device,
-  DeviceType,
   LightDevice,
   ShutterDeviceModel,
-} from '../../interfaces/somfy.interface';
+} from '../../interfaces/somfy/device-state.interface';
+import { Device, DeviceType } from '../../interfaces/somfy/device.interface';
 import AlertActions from '../AlertActions';
 import ShutterDevice from '../ShutterDevice';
 import DevicesSkeleton from '../Skeletons/DevicesSkeleton';
@@ -14,13 +13,13 @@ import SomfyLightDevice from '../SomfyLightDevice';
 
 const SomfyDevices = () => {
   const { t } = useTranslation();
-  const { data, error, isFetching, isError, refetch } = useDevices();
+  const { data, isFetching, isError, refetch } = useDevices();
 
   const somfyDevices: Device[] | undefined = data;
   return (
     <Box>
       <Box sx={{ backgroundColor: 'inherit', borderRadius: '25px' }}>
-        {isError && error instanceof Error && (
+        {isError && (
           <AlertActions
             severity="error"
             message={t('homePage.somfy.error')}
@@ -31,10 +30,15 @@ const SomfyDevices = () => {
             }
           />
         )}
-        <Grid container spacing={6} columnSpacing={8}>
-          {isFetching && <DevicesSkeleton repeat={9} height={250} />}
-          {!isFetching &&
-            somfyDevices?.map((device, index) => {
+        {isFetching && <DevicesSkeleton repeat={9} height={250} />}
+        {!isFetching && !isError && (
+          <Grid
+            container
+            spacing={6}
+            columnSpacing={8}
+            data-testid="devices-list"
+          >
+            {somfyDevices?.map((device, index) => {
               return (
                 <Grid item xs={12} md={6} lg={4} key={index}>
                   {device.controllableName === DeviceType.LIGHT && (
@@ -46,7 +50,8 @@ const SomfyDevices = () => {
                 </Grid>
               );
             })}
-        </Grid>
+          </Grid>
+        )}
       </Box>
     </Box>
   );

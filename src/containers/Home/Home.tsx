@@ -5,7 +5,7 @@ import theme from '../../utils/theme';
 
 const Home = () => {
   return (
-    <Box sx={{ backgroundColor: theme.palette.lightGrey }}>
+    <Box sx={{ backgroundColor: theme.palette.lightGrey, minHeight: '100vh' }}>
       <Container>
         <Box sx={{ marginBottom: 6 }}>
           <GoveeDevices />

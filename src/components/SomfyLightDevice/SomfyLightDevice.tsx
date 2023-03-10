@@ -1,25 +1,22 @@
 import {
   RefreshOutlined,
+  ReportProblem,
   WbIncandescentOutlined,
   WifiOffOutlined,
   WifiOutlined,
-  ReportProblem,
 } from '@mui/icons-material';
 import {
   Box,
   Grid,
   IconButton,
-  makeStyles,
-  Theme,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
-import {
-  DeviceControlPayload,
-  LightDevice,
-} from '../../interfaces/somfy.interface';
+import { DeviceControlPayload } from '../../interfaces/somfy/device-control.interface';
+import { LightDevice } from '../../interfaces/somfy/device-state.interface';
 import theme from '../../utils/theme';
 import Spinner from '../Spinner';
 
@@ -28,6 +25,7 @@ interface Props {
 }
 
 const SomfyLightDevice = ({ device }: Props) => {
+  const { t } = useTranslation();
   const {
     isLoading: isCommandLoading,
     isError: isCommandError,
@@ -44,7 +42,10 @@ const SomfyLightDevice = ({ device }: Props) => {
     newPowerState: string | null
   ): void => {
     const payload: DeviceControlPayload = {
-      label: `Set power state ${newPowerState} - ${device.label}`,
+      label: t('payload.somfyLight.powerstate', {
+        newPowerState,
+        label: device.label,
+      }),
       actions: [
         {
           commands: [
@@ -101,21 +102,23 @@ const SomfyLightDevice = ({ device }: Props) => {
           >
             {/* Error */}
             {(isCommandError || getDeviceIsError) && (
-              <ReportProblem
-                fontSize="small"
-                sx={{ marginRight: 0.5, color: theme.palette.red }}
-              />
+              <Box data-testid="somfy-device-error">
+                <ReportProblem
+                  fontSize="small"
+                  sx={{ marginRight: 0.5, color: theme.palette.red }}
+                />
+              </Box>
             )}
 
             {/* Refresh button */}
             <IconButton
               color="primary"
               aria-label="refresh device data"
+              data-testid="refresh-device-data"
               component="button"
-              className="refresh-button mr-05"
               sx={{ marginRight: 0.5, padding: '0' }}
               size="small"
-              onClick={() => getDeviceRefetch({ throwOnError: true })}
+              onClick={() => getDeviceRefetch()}
             >
               <RefreshOutlined fontSize="small" color="primary" />
             </IconButton>
@@ -166,7 +169,7 @@ const SomfyLightDevice = ({ device }: Props) => {
               value="on"
               aria-label="turn on"
             >
-              ON
+              {t('common.on')}
             </ToggleButton>
             <ToggleButton
               className="somfy-light-button-off"
@@ -180,7 +183,7 @@ const SomfyLightDevice = ({ device }: Props) => {
               value="off"
               aria-label="turn off"
             >
-              OFF
+              {t('common.off')}
             </ToggleButton>
           </ToggleButtonGroup>
         </Grid>

@@ -3,7 +3,9 @@
     "error": "Error",
     "name": {
       "initials": "RB"
-    }
+    },
+    "on": "ON",
+    "off": "OFF"
   },
   "homePage": {
     "title": "All devices",
@@ -21,6 +23,21 @@
     "open": "open",
     "close": "close",
     "openAt": "open at {{level}}%"
+  },
+  "payload": {
+    "shutter": {
+      "favoritePosition": {
+        "label": "Set shutter favorite position - {{label}}"
+      },
+      "levelUpdate": {
+        "label": "Set shutter level {{value}} - {{label}}"
+      }
+    },
+    "somfyLight": {
+      "powerState": {
+        "label": "Set power state {{newPowerState}} - {{label}}"
+      }
+    }
   }
 }
 

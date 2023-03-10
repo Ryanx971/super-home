@@ -20,11 +20,9 @@ import {
   useDeviceControlUpdate,
   useDeviceState,
 } from '../../hooks/govee.hooks';
-import {
-  Device,
-  DeviceControlPayload,
-  DeviceState,
-} from '../../interfaces/govee.interface';
+import { DeviceControlPayload } from '../../interfaces/govee/device-control.interface';
+import { DeviceState } from '../../interfaces/govee/device-state.interface';
+import { Device } from '../../interfaces/govee/device.interface';
 import theme from '../../utils/theme';
 import IconPopover from '../IconPopover';
 import Spinner from '../Spinner';
@@ -172,7 +170,7 @@ const GoveeLightDevice = ({ device }: Props) => {
           >
             {/* Error */}
             {isDeviceError && (
-              <Box sx={{ marginRight: 0.5 }}>
+              <Box sx={{ marginRight: 0.5 }} data-testid="govee-device-error">
                 <ReportProblem
                   fontSize="small"
                   sx={{ color: theme.palette.red }}
@@ -219,6 +217,7 @@ const GoveeLightDevice = ({ device }: Props) => {
             )}
 
             <Switch
+              title="switch-power-state"
               checked={deviceState?.properties?.powerState === 'on'}
               onChange={handlePowerStateChange}
               disabled={!deviceState?.properties?.online}
@@ -232,6 +231,7 @@ const GoveeLightDevice = ({ device }: Props) => {
         size="small"
         key={`slider-${deviceState?.properties?.brightness}`}
         defaultValue={deviceState?.properties?.brightness}
+        data-testid="govee-device-slider"
         sx={{ margin: '1rem 0' }}
         disabled={
           !deviceState?.properties?.online ||
