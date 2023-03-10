@@ -1,10 +1,8 @@
-import {
-  DeviceState,
-  DeviceStateRequestResponse,
-} from '../../interfaces/govee.interface';
+import { DeviceState } from '../../interfaces/govee/device-state.interface';
+import { GetGoveeDeviceStateResponse } from '../../interfaces/rest/response.interface';
 
 const deviceStateMapping = (
-  deviceState: DeviceStateRequestResponse
+  deviceState: GetGoveeDeviceStateResponse
 ): DeviceState => {
   const { properties } = deviceState;
   return {

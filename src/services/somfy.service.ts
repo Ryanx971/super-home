@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { SOMFY } from '../config/configuration';
-import {
-  Device,
-  DeviceControlPayload,
-  DeviceRequestResponse,
-  DeviceType,
-} from '../interfaces/somfy.interface';
+import { GetSomfyDeviceResponse } from '../interfaces/rest/response.interface';
+import { DeviceControlPayload } from '../interfaces/somfy/device-control.interface';
+import { Device, DeviceType } from '../interfaces/somfy/device.interface';
 import { deviceStateMapping } from '../utils/mappings/somfy.mapping';
 
 const DEFAULT_HEADERS = {
@@ -22,13 +19,13 @@ const getDevices = async (): Promise<Device[]> => {
   return axios
     .get(`${SOMFY.api.baseUrl}/setup/devices`, { headers: DEFAULT_HEADERS })
     .then(({ data }) => {
-      const devices: [DeviceRequestResponse] = data;
+      const devices: GetSomfyDeviceResponse[] = data;
       return devices
         .filter(({ controllableName }) => {
           // Filter by only managed devices
           return MANAGED_DEVICES.includes(controllableName);
         })
-        .map((device: DeviceRequestResponse) => {
+        .map((device: GetSomfyDeviceResponse) => {
           return deviceStateMapping(device);
         })
         .sort((a, b) => {

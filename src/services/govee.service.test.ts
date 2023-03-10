@@ -2,9 +2,9 @@ import axios from 'axios';
 import * as mapping from '../utils/mappings/govee.mapping';
 import { getDeviceState } from './govee.service';
 import {
-  deviceStateResponse,
+  deviceState,
   deviceStateMapped,
-} from '../resources/test/govee/device-state';
+} from '../test/resources/govee/device-state';
 import { describe, expect, test, afterEach, vi } from 'vitest';
 
 vi.mock('axios');
@@ -20,7 +20,7 @@ describe('Govee service', () => {
     const deviceMappingSpy = vi.spyOn(mapping, 'deviceStateMapping');
 
     mAxiosGet.mockResolvedValue({
-      data: deviceStateResponse,
+      data: deviceState,
     });
     const result = await getDeviceState('device', 'model');
     expect(result).toEqual(deviceStateMapped);

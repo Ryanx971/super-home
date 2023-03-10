@@ -44,7 +44,7 @@ const IconPopover = ({
         component="button"
         size="small"
         color="primary"
-        className="color-picker-button"
+        data-testid="color-picker-button"
         disabled={disabled}
         onClick={handleClick}
       >

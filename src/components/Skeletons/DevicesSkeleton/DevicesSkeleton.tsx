@@ -8,7 +8,7 @@ interface Props {
 
 const DevicesSkeleton = ({ repeat, height }: Props) => {
   return (
-    <>
+    <Grid container spacing={6} columnSpacing={8}>
       {Array.from(Array(repeat), (item: number, index: number) => {
         return (
           <Grid item xs={4} key={index} height={height}>
@@ -87,7 +87,7 @@ const DevicesSkeleton = ({ repeat, height }: Props) => {
           </Grid>
         );
       })}
-    </>
+    </Grid>
   );
 };
 

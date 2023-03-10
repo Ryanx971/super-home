@@ -1,16 +1,16 @@
-export const deviceStateResponse = {
+export const deviceState = {
   data: {
     device: '83:8D:A4:C1:38:CA:C9:CF',
     model: 'H6159',
     properties: [
       {
-        online: 'false',
+        online: true,
       },
       {
-        powerState: 'off',
+        powerState: 'on',
       },
       {
-        brightness: 85,
+        brightness: 80,
       },
       {
         color: {
@@ -29,9 +29,9 @@ export const deviceStateMapped = {
   device: '83:8D:A4:C1:38:CA:C9:CF',
   model: 'H6159',
   properties: {
-    online: false,
-    powerState: 'off',
-    brightness: 85,
+    online: true,
+    powerState: 'on',
+    brightness: 80,
     color: {
       r: 159,
       b: 91,

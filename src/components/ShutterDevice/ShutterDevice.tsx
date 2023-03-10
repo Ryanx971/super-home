@@ -17,10 +17,8 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
-import {
-  DeviceControlPayload,
-  ShutterDeviceModel,
-} from '../../interfaces/somfy.interface';
+import { DeviceControlPayload } from '../../interfaces/somfy/device-control.interface';
+import { ShutterDeviceModel } from '../../interfaces/somfy/device-state.interface';
 import theme from '../../utils/theme';
 import Spinner from '../Spinner';
 
@@ -49,7 +47,10 @@ const ShutterDevice = ({ device }: Props) => {
   const handleShutterLevelChange = (value: number | number[]): void => {
     const newCloseLevel: number = 100 - Number(value);
     const payload: DeviceControlPayload = {
-      label: `Set shutter level ${value}% - ${device.label}`,
+      label: t('payload.shutter.levelUpdate.label', {
+        value,
+        label: device.label,
+      }),
       actions: [
         {
           commands: [
@@ -89,7 +90,9 @@ const ShutterDevice = ({ device }: Props) => {
 
   const setFavoritePosition = (): void => {
     const payload: DeviceControlPayload = {
-      label: `Set shutter favorite position - ${device.label}`,
+      label: t('payload.shutter.favoritePosition.label', {
+        label: device.label,
+      }),
       actions: [
         {
           commands: [
@@ -171,20 +174,23 @@ const ShutterDevice = ({ device }: Props) => {
           >
             {/* Error */}
             {(isCommandError || getDeviceIsError) && (
-              <ReportProblem
-                fontSize="small"
-                sx={{ color: theme.palette.red, marginRight: 0.5 }}
-              />
+              <Box sx={{ marginRight: 0.5 }} data-testid="somfy-device-error">
+                <ReportProblem
+                  fontSize="small"
+                  sx={{ color: theme.palette.red, marginRight: 0.5 }}
+                />
+              </Box>
             )}
 
             {/* Refresh button */}
             <IconButton
               color="primary"
               aria-label="refresh device data"
+              data-testid="refresh-device-data"
               component="button"
               sx={{ padding: '0', marginRight: 0.5 }}
               size="small"
-              onClick={() => getDeviceRefetch({ throwOnError: true })}
+              onClick={() => getDeviceRefetch()}
             >
               <RefreshOutlined fontSize="small" color="primary" />
             </IconButton>
@@ -193,6 +199,7 @@ const ShutterDevice = ({ device }: Props) => {
             <IconButton
               color="primary"
               aria-label="favorite position button"
+              data-testid="favorite-position-button"
               component="button"
               sx={{ padding: '0', marginRight: 0.5 }}
               size="small"

@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { GOVEE } from '../config/configuration';
-import {
-  Device,
-  DeviceControlPayload,
-  DeviceState,
-} from '../interfaces/govee.interface';
+import { DeviceControlPayload } from '../interfaces/govee/device-control.interface';
+import { DeviceState } from '../interfaces/govee/device-state.interface';
+import { Device } from '../interfaces/govee/device.interface';
 import { deviceStateMapping } from '../utils/mappings/govee.mapping';
 
 const DEFAULT_HEADERS = {
