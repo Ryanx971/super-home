@@ -17,6 +17,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { useDevice, useSendCommand } from '../../hooks/somfy.hooks';
+import { DevicesList } from '../../interfaces/rest/response.interface';
 import { DeviceControlPayload } from '../../interfaces/somfy/device-control.interface';
 import { ShutterDeviceModel } from '../../interfaces/somfy/device-state.interface';
 import theme from '../../utils/theme';
@@ -67,19 +68,22 @@ const ShutterDevice = ({ device }: Props) => {
       onSuccess: () => {
         queryClient.setQueryData(
           ['somfy-devices'],
-          (currentDevices: ShutterDeviceModel[] | undefined) => {
-            const currentDevice: ShutterDeviceModel | undefined =
-              currentDevices?.find(
-                (deviceItem: ShutterDeviceModel) =>
-                  deviceItem.deviceURL === device.deviceURL
-              );
-            if (currentDevice) {
-              currentDevice.states = {
-                ...currentDevice.states,
-                closeLevel: newCloseLevel,
-                closeTarget: newCloseLevel,
-                isOpen: newCloseLevel !== 100,
-              };
+          (currentDevices: DevicesList | undefined) => {
+            const shutters = currentDevices?.shutters;
+            if (shutters) {
+              const currentDevice: ShutterDeviceModel | undefined =
+                shutters.find(
+                  (deviceItem: ShutterDeviceModel) =>
+                    deviceItem.deviceURL === device.deviceURL
+                );
+              if (currentDevice) {
+                currentDevice.states = {
+                  ...currentDevice.states,
+                  closeLevel: newCloseLevel,
+                  closeTarget: newCloseLevel,
+                  isOpen: newCloseLevel !== 100,
+                };
+              }
             }
             return currentDevices;
           }
@@ -108,22 +112,25 @@ const ShutterDevice = ({ device }: Props) => {
       onSuccess: () => {
         queryClient.setQueryData(
           ['somfy-devices'],
-          (currentDevices: ShutterDeviceModel[] | undefined) => {
-            const currentDevice: ShutterDeviceModel | undefined =
-              currentDevices?.find(
-                (deviceItem: ShutterDeviceModel) =>
-                  deviceItem.deviceURL === device.deviceURL
-              );
-            if (currentDevice) {
-              // Close level became memorized position
-              const closeLevel: number =
-                currentDevice?.states.memorized1Position;
-              currentDevice.states = {
-                ...currentDevice.states,
-                closeLevel,
-                closeTarget: closeLevel,
-                isOpen: closeLevel !== 100,
-              };
+          (currentDevices: DevicesList | undefined) => {
+            const shutters = currentDevices?.shutters;
+            if (shutters) {
+              const currentDevice: ShutterDeviceModel | undefined =
+                shutters.find(
+                  (deviceItem: ShutterDeviceModel) =>
+                    deviceItem.deviceURL === device.deviceURL
+                );
+              if (currentDevice) {
+                // Close level became memorized position
+                const closeLevel: number =
+                  currentDevice?.states.memorized1Position;
+                currentDevice.states = {
+                  ...currentDevice.states,
+                  closeLevel,
+                  closeTarget: closeLevel,
+                  isOpen: closeLevel !== 100,
+                };
+              }
             }
             return currentDevices;
           }
@@ -185,8 +192,9 @@ const ShutterDevice = ({ device }: Props) => {
             {/* Refresh button */}
             <IconButton
               color="primary"
-              aria-label="refresh device data"
               data-testid="refresh-device-data"
+              title={t('common.buttons.refresh.title')}
+              aria-label={t('common.buttons.refresh.title')}
               component="button"
               sx={{ padding: '0', marginRight: 0.5 }}
               size="small"
@@ -198,8 +206,9 @@ const ShutterDevice = ({ device }: Props) => {
             {/* Favorite position button */}
             <IconButton
               color="primary"
-              aria-label="favorite position button"
+              aria-label={t('common.buttons.favoritePosition.label')}
               data-testid="favorite-position-button"
+              title={t('common.buttons.favoritePosition.title')}
               component="button"
               sx={{ padding: '0', marginRight: 0.5 }}
               size="small"
@@ -242,6 +251,7 @@ const ShutterDevice = ({ device }: Props) => {
         >
           <Button
             variant="contained"
+            title={t('shutter.open')}
             onClick={() => handleShutterLevelChange(100)}
           >
             {t('shutter.open')}
@@ -264,6 +274,7 @@ const ShutterDevice = ({ device }: Props) => {
           />
           <Button
             variant="contained"
+            title={t('shutter.close')}
             onClick={() => handleShutterLevelChange(0)}
           >
             {t('shutter.close')}

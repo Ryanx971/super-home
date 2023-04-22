@@ -6,11 +6,11 @@ import Heating from '../Heating';
 const App = () => {
   return (
     <Router>
-      <Sidebar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Home />} />
-        <Route path="/heating" element={<Heating />} />
+        <Route path="/" element={<Sidebar />}>
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/heating" element={<Heating />} />
+        </Route>
       </Routes>
     </Router>
   );

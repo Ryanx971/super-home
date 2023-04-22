@@ -10,5 +10,7 @@ export interface Device {
 export enum DeviceType {
   SHUTTER = 'io:RollerShutterGenericIOComponent',
   LIGHT = 'rts:LightRTSComponent',
-  HEATING = 'ovp:HeatingTemperatureInterfaceTemperatureSensor',
+  HEATING_INTERFACE = 'ovp:SomfyHeatingTemperatureInterfaceOVPComponent',
+  HEATING_SENSOR = 'ovp:HeatingTemperatureInterfaceTemperatureSensor',
 }
+

@@ -27,9 +27,9 @@ declare module '@mui/material/styles' {
 
 const palette = {
   primary: { main: '#5e44ff', light: '#f7f6ff' },
-  secondary: { main: '#808080' },
+  secondary: { main: '#006C7F' },
   white: '#ffffff',
-  red: '#FF0000',
+  red: '#d32f2f',
   yellow: '#fbe122',
   black: '#000000',
   lightGrey: '#f3f3f3',
@@ -46,9 +46,51 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '15px',
-          paddingTop: 14,
-          paddingBottom: 14,
+          paddingTop: 10,
+          paddingBottom: 10,
           width: '100%',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          label: {
+            color: palette.primary.main,
+          },
+
+          '&:hover': {
+            borderColor: palette.primary.main,
+          },
+
+          fieldset: {
+            borderColor: palette.primary.main,
+          },
+
+          '& .MuiOutlinedInput-root': {
+            color: palette.primary.main,
+            fontWeight: 500,
+
+            '&:hover': {
+              borderColor: palette.primary.main,
+
+              fieldset: {
+                borderColor: palette.primary.main,
+              },
+            },
+          },
+
+          // handle error
+          '& .Mui-error': {
+            color: palette.red,
+            fontWeight: 500,
+
+            '&:hover': {
+              fieldset: {
+                borderColor: palette.red,
+              },
+            },
+          },
         },
       },
     },

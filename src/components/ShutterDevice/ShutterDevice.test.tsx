@@ -22,7 +22,7 @@ vi.mock('../../hooks/somfy.hooks', async () => {
 });
 
 describe('ShutterDevice component', () => {
-  const device = mappedDevices[5] as ShutterDeviceModel;
+  const device = mappedDevices.shutters[0] as ShutterDeviceModel;
 
   it('should render device', async () => {
     render(<ShutterDevice device={device} />, {

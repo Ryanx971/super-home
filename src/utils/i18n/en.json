@@ -1,11 +1,30 @@
 {
   "common": {
     "error": "Error",
+    "save": "Save",
+    "reset": "Reset",
     "name": {
       "initials": "RB"
     },
     "on": "ON",
-    "off": "OFF"
+    "off": "OFF",
+    "buttons": {
+      "refresh": {
+        "label": "Refresh device data",
+        "title": "Refresh device data"
+      },
+      "powerState": {
+        "title": "Change powerstate"
+      },
+      "favoritePosition": {
+        "title": "Set favorite position",
+        "label": "Set favorite position"
+      },
+      "settings": {
+        "title": "Go to settings",
+        "label": "Settings"
+      }
+    }
   },
   "homePage": {
     "title": "All devices",
@@ -17,7 +36,22 @@
       "title": "Somfy devices",
       "error": "An error occurred while retrieving Somfy information"
     },
-    "reloadDevices": "Reload devices"
+    "reloadDevices": "Reload devices",
+    "reloadDevice": "Reload device"
+  },
+  "heatingPage": {
+    "title": "Heating system",
+    "temperature": "{{value}}°C",
+    "modes": {
+      "auto": "Auto",
+      "comfort": "Confort",
+      "eco": "Eco",
+      "secured": "Anti Frost"
+    },
+    "heatingSettings": {
+      "title": "Heating settings",
+      "error": "An error occurred while editing the temperatures, please try again"
+    }
   },
   "shutter": {
     "open": "open",
@@ -36,6 +70,39 @@
     "somfyLight": {
       "powerState": {
         "label": "Set power state {{newPowerState}} - {{label}}"
+      }
+    },
+    "heating": {
+      "changeTemperatureMode": {
+        "label": "Set mode : {{newTemperatureMode}} - {{label}}"
+      }
+    }
+  },
+  "form": {
+    "heatingSettings": {
+      "comfort": {
+        "label": "Comfort temperature",
+        "errors": {
+          "required": "Comfort temperature is required",
+          "min": "Comfort temperature must be greater than economy temperature",
+          "max": "Comfort temperature must be less than {{max}}"
+        }
+      },
+      "eco": {
+        "label": "Economy temperature",
+        "errors": {
+          "required": "Economy temperature is required",
+          "min": "Economy temperature must be greater than anti frost temperature",
+          "max": "Economy temperature must be less than comfort temperature"
+        }
+      },
+      "secured": {
+        "label": "Anti frost temperature",
+        "errors": {
+          "required": "Anti frost temperature is required",
+          "min": "Anti frost temperature must be greater than O",
+          "max": "Anti frost temperature must be less than economy temperature"
+        }
       }
     }
   }

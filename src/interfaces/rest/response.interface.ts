@@ -1,4 +1,9 @@
-import { Device } from '../govee/device.interface';
+import {
+  HeatingDevice,
+  LightDevice,
+  ShutterDeviceModel,
+} from '../somfy/device-state.interface';
+import { Device } from '../somfy/device.interface';
 
 // ! Govee
 export interface GetGoveeDevicesResponse {
@@ -26,5 +31,11 @@ export interface GetSomfyDeviceState {
   type: number;
   name: string;
   value: string | number | boolean;
+}
+
+export interface DevicesList {
+  shutters: ShutterDeviceModel[];
+  lights: LightDevice[];
+  heating: HeatingDevice;
 }
 

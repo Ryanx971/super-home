@@ -113,7 +113,8 @@ const SomfyLightDevice = ({ device }: Props) => {
             {/* Refresh button */}
             <IconButton
               color="primary"
-              aria-label="refresh device data"
+              aria-label={t('common.buttons.refresh.label')}
+              title={t('common.buttons.refresh.title')}
               data-testid="refresh-device-data"
               component="button"
               sx={{ marginRight: 0.5, padding: '0' }}
@@ -167,7 +168,8 @@ const SomfyLightDevice = ({ device }: Props) => {
               }}
               color="primary"
               value="on"
-              aria-label="turn on"
+              aria-label={t('common.on')}
+              title={t('common.on')}
             >
               {t('common.on')}
             </ToggleButton>
@@ -181,7 +183,8 @@ const SomfyLightDevice = ({ device }: Props) => {
                 color: theme.palette.primary.main,
               }}
               value="off"
-              aria-label="turn off"
+              aria-label={t('common.off')}
+              title={t('common.off')}
             >
               {t('common.off')}
             </ToggleButton>
