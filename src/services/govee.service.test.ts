@@ -5,7 +5,7 @@ import {
   deviceState,
   deviceStateMapped,
 } from '../test/resources/govee/device-state';
-import { describe, expect, test, afterEach, vi } from 'vitest';
+import { describe, expect, it, afterEach, vi } from 'vitest';
 
 vi.mock('axios');
 
@@ -16,7 +16,7 @@ describe('Govee service', () => {
     vi.restoreAllMocks();
   });
 
-  test('getDeviceState - should apply mapping', async () => {
+  it('getDeviceState - should apply mapping', async () => {
     const deviceMappingSpy = vi.spyOn(mapping, 'deviceStateMapping');
 
     mAxiosGet.mockResolvedValue({

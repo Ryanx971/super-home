@@ -16,6 +16,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query';
 import React, { ChangeEvent } from 'react';
 import { CirclePicker, ColorResult } from 'react-color';
+import { useTranslation } from 'react-i18next';
 import {
   useDeviceControlUpdate,
   useDeviceState,
@@ -32,6 +33,7 @@ interface Props {
 }
 
 const GoveeLightDevice = ({ device }: Props) => {
+  const { t } = useTranslation();
   const {
     data: deviceState,
     isRefetching: isDeviceRefetching,
@@ -181,10 +183,10 @@ const GoveeLightDevice = ({ device }: Props) => {
             {/* Refresh button */}
             <IconButton
               color="primary"
-              aria-label="refresh device data"
               component="button"
               size="small"
-              className="refresh-button mr-05"
+              aria-label={t('common.buttons.refresh.label')}
+              title={t('common.buttons.refresh.title')}
               sx={{ padding: 'O', marginRight: 0.5 }}
               onClick={() => refreshDevice({ throwOnError: true })}
             >
@@ -217,7 +219,7 @@ const GoveeLightDevice = ({ device }: Props) => {
             )}
 
             <Switch
-              title="switch-power-state"
+              title={t('common.buttons.powerState.title')}
               checked={deviceState?.properties?.powerState === 'on'}
               onChange={handlePowerStateChange}
               disabled={!deviceState?.properties?.online}

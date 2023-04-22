@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 vi.mock('react-router-dom', async () => {
   return {
     ...vi.importMock('react-router-dom'),
+    Outlet: () => React.createElement('div'),
     useLocation: () => ({
       search: '',
       pathname: '/',

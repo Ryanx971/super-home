@@ -15,5 +15,6 @@ export const SOMFY = {
 
 export const CONSTANTS = {
   DEFAULT_STALETIME: 120_000,
+  MAX_HEATING_TEMPERATURE: 24,
 };
 

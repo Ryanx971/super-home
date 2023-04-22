@@ -19,7 +19,12 @@ const GoveeDevices = () => {
             severity="error"
             message={t('homePage.govee.error')}
             children={
-              <Button color="inherit" size="small" onClick={() => refetch()}>
+              <Button
+                color="inherit"
+                size="small"
+                onClick={() => refetch()}
+                sx={{ width: 'auto', padding: 1 }}
+              >
                 {t('homePage.reloadDevices')}
               </Button>
             }

@@ -1,6 +1,7 @@
 import { Box, Button, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useDevices } from '../../hooks/somfy.hooks';
+import { DevicesList } from '../../interfaces/rest/response.interface';
 import {
   LightDevice,
   ShutterDeviceModel,
@@ -15,7 +16,8 @@ const SomfyDevices = () => {
   const { t } = useTranslation();
   const { data, isFetching, isError, refetch } = useDevices();
 
-  const somfyDevices: Device[] | undefined = data;
+  const somfyDevices: DevicesList | undefined = data;
+
   return (
     <Box>
       <Box sx={{ backgroundColor: 'inherit', borderRadius: '25px' }}>
@@ -24,7 +26,12 @@ const SomfyDevices = () => {
             severity="error"
             message={t('homePage.somfy.error')}
             children={
-              <Button color="inherit" size="small" onClick={() => refetch()}>
+              <Button
+                color="inherit"
+                size="small"
+                onClick={() => refetch()}
+                sx={{ width: 'auto', padding: 1 }}
+              >
                 {t('homePage.reloadDevices')}
               </Button>
             }
@@ -38,18 +45,17 @@ const SomfyDevices = () => {
             columnSpacing={8}
             data-testid="devices-list"
           >
-            {somfyDevices?.map((device, index) => {
-              return (
-                <Grid item xs={12} md={6} lg={4} key={index}>
-                  {device.controllableName === DeviceType.LIGHT && (
-                    <SomfyLightDevice device={device as LightDevice} />
-                  )}
-                  {device.controllableName === DeviceType.SHUTTER && (
-                    <ShutterDevice device={device as ShutterDeviceModel} />
-                  )}
-                </Grid>
-              );
-            })}
+            {somfyDevices?.lights.map((device, index) => (
+              <Grid item xs={12} md={6} lg={4} key={index}>
+                <SomfyLightDevice device={device as LightDevice} />
+              </Grid>
+            ))}
+
+            {somfyDevices?.shutters.map((device, index) => (
+              <Grid item xs={12} md={6} lg={4} key={index}>
+                <ShutterDevice device={device as ShutterDeviceModel} />
+              </Grid>
+            ))}
           </Grid>
         )}
       </Box>

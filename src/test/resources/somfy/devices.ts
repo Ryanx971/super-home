@@ -1,3 +1,5 @@
+import { DevicesList } from '../../../interfaces/rest/response.interface';
+
 export const devices = [
   {
     deviceURL: 'io://2006-4441-1365/1975138',
@@ -1395,783 +1397,102 @@ export const devices = [
   },
 ];
 
-export const mappedDevices = [
-  {
-    creationTime: 1678189712186,
-    deviceURL: 'rts://2006-4441-1365/16713552',
-    available: true,
-    synced: true,
-    type: 1,
-    states: {},
-    label: 'Lumière de la cuisine',
-    definition: {
-      states: [],
-      widgetName: 'OnOffLight',
-      attributes: [],
-      uiClass: 'Light',
-      commands: [
-        {
-          nparams: 0,
-          commandName: 'stop',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'myWithTimer',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'down',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'onWithTimer',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'up',
-          paramsSig: '*p1',
-        },
-        {
-          commandName: 'test',
-          nparams: 0,
-        },
-        {
-          commandName: 'off',
-          nparams: 0,
-        },
-        {
-          commandName: 'on',
-          nparams: 0,
-        },
-        {
-          nparams: 0,
-          commandName: 'my',
-          paramsSig: '*p1',
-        },
-        {
-          commandName: 'identify',
-          nparams: 0,
-        },
-        {
-          nparams: 0,
-          commandName: 'openConfiguration',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'rest',
-          paramsSig: '*p1',
-        },
-      ],
-      type: 'ACTUATOR',
+export const mappedDevices: DevicesList = {
+  shutters: [
+    {
+      deviceURL: 'io://2006-4441-1365/1975138',
+      available: true,
+      type: 1,
+      states: {
+        isOpen: true,
+        status: 'available',
+        isMoving: false,
+        closeTarget: 85,
+        memorized1Position: 20,
+        closeLevel: 85,
+      },
+      label: 'Volet de la chambre',
+
+      enabled: true,
+      controllableName: 'io:RollerShutterGenericIOComponent',
     },
-    attributes: [],
-    enabled: true,
-    controllableName: 'rts:LightRTSComponent',
-    subsystemId: 0,
-  },
-  {
-    creationTime: 1678189712389,
-    deviceURL: 'rts://2006-4441-1365/16714621',
-    available: true,
-    synced: true,
-    type: 1,
-    states: {},
-    label: 'Lumière de la chambre',
-    definition: {
-      states: [],
-      widgetName: 'OnOffLight',
-      attributes: [],
-      uiClass: 'Light',
-      commands: [
-        {
-          nparams: 0,
-          commandName: 'stop',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'myWithTimer',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'down',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'onWithTimer',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'up',
-          paramsSig: '*p1',
-        },
-        {
-          commandName: 'test',
-          nparams: 0,
-        },
-        {
-          commandName: 'off',
-          nparams: 0,
-        },
-        {
-          commandName: 'on',
-          nparams: 0,
-        },
-        {
-          nparams: 0,
-          commandName: 'my',
-          paramsSig: '*p1',
-        },
-        {
-          commandName: 'identify',
-          nparams: 0,
-        },
-        {
-          nparams: 0,
-          commandName: 'openConfiguration',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'rest',
-          paramsSig: '*p1',
-        },
-      ],
-      type: 'ACTUATOR',
+    {
+      deviceURL: 'io://2006-4441-1365/1415497',
+      available: true,
+      type: 1,
+      states: {
+        isOpen: true,
+        status: 'available',
+        isMoving: false,
+        closeTarget: 90,
+        memorized1Position: 25,
+        closeLevel: 90,
+      },
+      label: 'Volet du salon',
+      enabled: true,
+      controllableName: 'io:RollerShutterGenericIOComponent',
     },
-    attributes: [],
-    enabled: true,
-    controllableName: 'rts:LightRTSComponent',
-    subsystemId: 0,
-  },
-  {
-    creationTime: 1678189712608,
-    deviceURL: 'rts://2006-4441-1365/16720321',
-    available: true,
-    synced: true,
-    type: 1,
-    states: {},
-    label: 'Lumière du salon',
-    definition: {
-      states: [],
-      widgetName: 'OnOffLight',
-      attributes: [],
-      uiClass: 'Light',
-      commands: [
-        {
-          nparams: 0,
-          commandName: 'stop',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'myWithTimer',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'down',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'onWithTimer',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'up',
-          paramsSig: '*p1',
-        },
-        {
-          commandName: 'test',
-          nparams: 0,
-        },
-        {
-          commandName: 'off',
-          nparams: 0,
-        },
-        {
-          commandName: 'on',
-          nparams: 0,
-        },
-        {
-          nparams: 0,
-          commandName: 'my',
-          paramsSig: '*p1',
-        },
-        {
-          commandName: 'identify',
-          nparams: 0,
-        },
-        {
-          nparams: 0,
-          commandName: 'openConfiguration',
-          paramsSig: '*p1',
-        },
-        {
-          nparams: 0,
-          commandName: 'rest',
-          paramsSig: '*p1',
-        },
-      ],
-      type: 'ACTUATOR',
+  ],
+  lights: [
+    {
+      deviceURL: 'rts://2006-4441-1365/16720321',
+      available: true,
+      type: 1,
+      states: {},
+      label: 'Lumière du salon',
+      enabled: true,
+      controllableName: 'rts:LightRTSComponent',
     },
-    attributes: [],
-    enabled: true,
-    controllableName: 'rts:LightRTSComponent',
-    subsystemId: 0,
-  },
-  {
-    deviceURL: 'ovp://2006-4441-1365/14036424#2',
-    available: true,
-    synced: true,
-    type: 2,
-    states: {
-      status: 'available',
-      isOpen: false,
+    {
+      deviceURL: 'rts://2006-4441-1365/16713552',
+      available: true,
+      type: 1,
+      states: {},
+      label: 'Lumière de la cuisine',
+      enabled: true,
+      controllableName: 'rts:LightRTSComponent',
     },
-    label: 'Chauffage',
-    subsystemId: 2,
-    attributes: [],
-    enabled: true,
-    controllableName: 'ovp:HeatingTemperatureInterfaceTemperatureSensor',
-    definition: {
-      states: [
-        {
-          name: 'core:StatusState',
-          rawStateId: '2147426304',
+    {
+      deviceURL: 'rts://2006-4441-1365/16714621',
+      available: true,
+      type: 1,
+      states: {},
+      label: 'Lumière de la chambre',
+      enabled: true,
+      controllableName: 'rts:LightRTSComponent',
+    },
+  ],
+  heating: {
+    interface: {
+      deviceURL: 'ovp://2006-4441-1365/14036424#1',
+      available: true,
+      type: 1,
+      states: {
+        activeMode: 'manu',
+        currentMode: 'eco',
+        power: 'on',
+        battery: 'normal',
+        temperatureByMode: {
+          comfort: 21,
+          eco: 17,
+          secured: 5,
         },
-        {
-          name: 'core:NameState',
-          rawStateId: '1',
-        },
-        {
-          name: 'core:TemperatureState',
-          rawStateId: '65558',
-        },
-      ],
-      widgetName: 'TemperatureSensor',
-      attributes: [],
-      uiClass: 'TemperatureSensor',
-      commands: [
-        {
-          commandName: 'getName',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setName',
-          paramsSig: 'p1',
-        },
-      ],
-      type: 'SENSOR',
+      },
+      label: 'Chauffage',
+      enabled: true,
+      controllableName: 'ovp:SomfyHeatingTemperatureInterfaceOVPComponent',
+    },
+    sensor: {
+      deviceURL: 'ovp://2006-4441-1365/14036424#2',
+      available: true,
+      type: 2,
+      states: {
+        temperature: 20.6,
+      },
+      label: 'Chauffage',
+      enabled: true,
+      controllableName: 'ovp:HeatingTemperatureInterfaceTemperatureSensor',
     },
   },
-  {
-    deviceURL: 'io://2006-4441-1365/1415497',
-    available: true,
-    synced: true,
-    type: 1,
-    states: {
-      status: 'available',
-      isMoving: false,
-      closeTarget: 100,
-      memorized1Position: 25,
-      closeLevel: 100,
-      isOpen: false,
-    },
-    label: 'Volet du salon',
-    subsystemId: 0,
-    attributes: [
-      {
-        type: 10,
-        name: 'core:SupportedManufacturerSettingsCommands',
-        value: [
-          'dead_man_up',
-          'dead_man_down',
-          'dead_man_stop',
-          'dead_man_impulse_up',
-          'dead_man_impulse_down',
-          'enter_settings_mode',
-          'save_upper_end_limit',
-          'save_lower_end_limit',
-          'stop_after_save_limit',
-          'save_settings',
-          'invert_rotation',
-          'save_my_position',
-          'delete_my_position',
-          'reset_actuator',
-          'double_power_cut',
-          'eject_from_setting_mode',
-        ],
-      },
-      {
-        type: 3,
-        name: 'core:Manufacturer',
-        value: 'Somfy',
-      },
-      {
-        type: 3,
-        name: 'core:FirmwareRevision',
-        value: '5100394X22',
-      },
-    ],
-    enabled: true,
-    controllableName: 'io:RollerShutterGenericIOComponent',
-    definition: {
-      states: [
-        {
-          name: 'core:StatusState',
-          rawStateId: '2147426304',
-        },
-        {
-          name: 'core:NameState',
-          rawStateId: '1',
-        },
-        {
-          name: 'core:AdditionalStatusState',
-          rawStateId: '2146500645',
-        },
-        {
-          name: 'core:TargetClosureState',
-          rawStateId: '16832522',
-        },
-        {
-          name: 'core:SecuredPositionState',
-          rawStateId: '16832522',
-        },
-        {
-          name: 'core:ManufacturerSettingsState',
-          rawStateId: '65537',
-        },
-        {
-          name: 'core:ClosureState',
-          rawStateId: '65537',
-        },
-        {
-          name: 'core:OpenClosedState',
-          rawStateId: '65537',
-        },
-        {
-          name: 'core:MovingState',
-          rawStateId: '65557',
-        },
-        {
-          name: 'core:ManufacturerDiagnosticsState',
-          rawStateId: '2',
-        },
-        {
-          name: 'core:DiscreteRSSILevelState',
-          rawStateId: '2146500638',
-        },
-        {
-          name: 'core:RSSILevelState',
-          rawStateId: '2146500638',
-        },
-        {
-          name: 'core:Memorized1PositionState',
-          rawStateId: '16832512',
-        },
-      ],
-      widgetName: 'PositionableRollerShutter',
-      attributes: [
-        {
-          name: 'core:SupportedManufacturerSettingsCommands',
-        },
-        {
-          name: 'core:Manufacturer',
-        },
-        {
-          name: 'core:FirmwareRevision',
-        },
-      ],
-      uiClass: 'RollerShutter',
-      commands: [
-        {
-          commandName: 'stop',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setDeployment',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'delayedStopIdentify',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 2,
-          commandName: 'runManufacturerSettingsCommand',
-          paramsSig: 'p1,p2',
-        },
-        {
-          commandName: 'down',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setClosure',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'unpairAllOneWayControllers',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setConfigState',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'pairOneWayController',
-          paramsSig: 'p1,*p2',
-        },
-        {
-          commandName: 'unpairAllOneWayControllersAndDeleteNode',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'advancedRefresh',
-          paramsSig: 'p1,*p2',
-        },
-        {
-          commandName: 'refreshMemorized1Position',
-          nparams: 0,
-        },
-        {
-          commandName: 'startIdentify',
-          nparams: 0,
-        },
-        {
-          commandName: 'stopIdentify',
-          nparams: 0,
-        },
-        {
-          commandName: 'up',
-          nparams: 0,
-        },
-        {
-          commandName: 'open',
-          nparams: 0,
-        },
-        {
-          commandName: 'keepOneWayControllersAndDeleteNode',
-          nparams: 0,
-        },
-        {
-          commandName: 'sendIOKey',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setMemorized1Position',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'wink',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'close',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setName',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'identify',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setPosition',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'unpairOneWayController',
-          paramsSig: 'p1,*p2',
-        },
-        {
-          nparams: 1,
-          commandName: 'setSecuredPosition',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'my',
-          nparams: 0,
-        },
-        {
-          commandName: 'getName',
-          nparams: 0,
-        },
-      ],
-      type: 'ACTUATOR',
-    },
-  },
-  {
-    deviceURL: 'io://2006-4441-1365/1975138',
-    available: true,
-    synced: true,
-    type: 1,
-    states: {
-      status: 'available',
-      isMoving: false,
-      closeTarget: 100,
-      memorized1Position: 20,
-      closeLevel: 100,
-      isOpen: false,
-    },
-    label: 'Volet de la chambre',
-    subsystemId: 0,
-    attributes: [
-      {
-        type: 10,
-        name: 'core:SupportedManufacturerSettingsCommands',
-        value: [
-          'dead_man_up',
-          'dead_man_down',
-          'dead_man_stop',
-          'dead_man_impulse_up',
-          'dead_man_impulse_down',
-          'enter_settings_mode',
-          'save_upper_end_limit',
-          'save_lower_end_limit',
-          'stop_after_save_limit',
-          'save_settings',
-          'invert_rotation',
-          'save_my_position',
-          'delete_my_position',
-          'reset_actuator',
-          'double_power_cut',
-          'eject_from_setting_mode',
-        ],
-      },
-      {
-        type: 3,
-        name: 'core:Manufacturer',
-        value: 'Somfy',
-      },
-      {
-        type: 3,
-        name: 'core:FirmwareRevision',
-        value: '5100394X22',
-      },
-    ],
-    enabled: true,
-    controllableName: 'io:RollerShutterGenericIOComponent',
-    definition: {
-      states: [
-        {
-          name: 'core:StatusState',
-          rawStateId: '2147426304',
-        },
-        {
-          name: 'core:NameState',
-          rawStateId: '1',
-        },
-        {
-          name: 'core:AdditionalStatusState',
-          rawStateId: '2146500645',
-        },
-        {
-          name: 'core:TargetClosureState',
-          rawStateId: '16832522',
-        },
-        {
-          name: 'core:SecuredPositionState',
-          rawStateId: '16832522',
-        },
-        {
-          name: 'core:ManufacturerSettingsState',
-          rawStateId: '65537',
-        },
-        {
-          name: 'core:ClosureState',
-          rawStateId: '65537',
-        },
-        {
-          name: 'core:OpenClosedState',
-          rawStateId: '65537',
-        },
-        {
-          name: 'core:MovingState',
-          rawStateId: '65557',
-        },
-        {
-          name: 'core:ManufacturerDiagnosticsState',
-          rawStateId: '2',
-        },
-        {
-          name: 'core:DiscreteRSSILevelState',
-          rawStateId: '2146500638',
-        },
-        {
-          name: 'core:RSSILevelState',
-          rawStateId: '2146500638',
-        },
-        {
-          name: 'core:Memorized1PositionState',
-          rawStateId: '16832512',
-        },
-      ],
-      widgetName: 'PositionableRollerShutter',
-      attributes: [
-        {
-          name: 'core:SupportedManufacturerSettingsCommands',
-        },
-        {
-          name: 'core:Manufacturer',
-        },
-        {
-          name: 'core:FirmwareRevision',
-        },
-      ],
-      uiClass: 'RollerShutter',
-      commands: [
-        {
-          commandName: 'stop',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setDeployment',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'delayedStopIdentify',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 2,
-          commandName: 'runManufacturerSettingsCommand',
-          paramsSig: 'p1,p2',
-        },
-        {
-          commandName: 'down',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setClosure',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'unpairAllOneWayControllers',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setConfigState',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'pairOneWayController',
-          paramsSig: 'p1,*p2',
-        },
-        {
-          commandName: 'unpairAllOneWayControllersAndDeleteNode',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'advancedRefresh',
-          paramsSig: 'p1,*p2',
-        },
-        {
-          commandName: 'refreshMemorized1Position',
-          nparams: 0,
-        },
-        {
-          commandName: 'startIdentify',
-          nparams: 0,
-        },
-        {
-          commandName: 'stopIdentify',
-          nparams: 0,
-        },
-        {
-          commandName: 'up',
-          nparams: 0,
-        },
-        {
-          commandName: 'open',
-          nparams: 0,
-        },
-        {
-          commandName: 'keepOneWayControllersAndDeleteNode',
-          nparams: 0,
-        },
-        {
-          commandName: 'sendIOKey',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setMemorized1Position',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'wink',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'close',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setName',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'identify',
-          nparams: 0,
-        },
-        {
-          nparams: 1,
-          commandName: 'setPosition',
-          paramsSig: 'p1',
-        },
-        {
-          nparams: 1,
-          commandName: 'unpairOneWayController',
-          paramsSig: 'p1,*p2',
-        },
-        {
-          nparams: 1,
-          commandName: 'setSecuredPosition',
-          paramsSig: 'p1',
-        },
-        {
-          commandName: 'my',
-          nparams: 0,
-        },
-        {
-          commandName: 'getName',
-          nparams: 0,
-        },
-      ],
-      type: 'ACTUATOR',
-    },
-  },
-];
+};
+

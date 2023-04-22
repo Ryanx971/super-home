@@ -6,6 +6,7 @@ interface Props {
   children: React.ReactNode;
   classes?: string;
   disabled?: boolean;
+  title?: string;
   anchorOriginVertical: number | 'bottom' | 'top' | 'center';
   anchorOriginHorizontal: number | 'center' | 'left' | 'right';
   transformOriginVertical: number | 'bottom' | 'top' | 'center';
@@ -15,6 +16,7 @@ interface Props {
 const IconPopover = ({
   children,
   disabled,
+  title,
   anchorOriginVertical,
   anchorOriginHorizontal,
   transformOriginVertical,
@@ -39,13 +41,14 @@ const IconPopover = ({
     <Box>
       <IconButton
         aria-describedby={id}
-        aria-label="color picker"
+        aria-label="Change light color"
         sx={{ padding: '0', marginRight: 0.5 }}
         component="button"
         size="small"
         color="primary"
         data-testid="color-picker-button"
         disabled={disabled}
+        title={title || 'Change light color'}
         onClick={handleClick}
       >
         <ColorLensOutlined
