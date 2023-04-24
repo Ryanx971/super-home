@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  super-home:
+    container_name: super-home
+    image: super-home
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - 5000:80
+    networks:
+      - super-home-front
+
+networks:
+  super-home-front:
+

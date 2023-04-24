@@ -8,7 +8,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Sidebar />}>
-          <Route path="/dashboard" element={<Home />} />
+          <Route index path="/" element={<Home />} />
           <Route path="/heating" element={<Heating />} />
         </Route>
       </Routes>

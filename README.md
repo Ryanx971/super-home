@@ -26,7 +26,7 @@ To Start Server:
 
 `pnpm run dev`
 
-Open [http://localhost:5173/dashboard](http://localhost:5173/dashboard) to view it in the browser.
+Open [http://localhost:5173/](http://localhost:5173/) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.

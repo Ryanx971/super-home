@@ -19,7 +19,7 @@ const sidebarNavItems: NavItem[] = [
   {
     id: 'dashboard',
     icon: HomeOutlined,
-    to: '/dashboard',
+    to: '/',
   },
   {
     id: 'heating',
