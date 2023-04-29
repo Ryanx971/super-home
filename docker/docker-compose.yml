@@ -4,6 +4,7 @@ services:
   super-home:
     container_name: super-home
     image: super-home
+    restart: "always"
     build:
       context: ..
       dockerfile: docker/Dockerfile
