@@ -1,12 +1,12 @@
-## Super-Home
+## 🏡 Super-Home
 
-An application used to filter data form Twitter based on user preference, built with React, Redux, JavaScript, and CSS.
+Super-Home is a work-in-progress application that aims to centralize and control connected devices (e.g., Somfy, Govee) from a single web interface.
 
-## Project Status 📶
+## 📶 Project Status 
 
-This project is currently in development.
+🚧 This project is currently under development.
 
-## Project Screen Shot(s) 📷
+## 📷 Screenshot
 
 ![super-home](./public/super-home.png)
 
@@ -28,8 +28,7 @@ To Start Server:
 
 Open [http://localhost:5173/dashboard](http://localhost:5173/dashboard) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> The page will reload if you make edits.\ You will also see any lint errors in the console.
 
 `pnpm build`
 
@@ -37,7 +36,4 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
